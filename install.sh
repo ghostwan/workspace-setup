@@ -1,7 +1,7 @@
 # !/bin/sh
-# Version 0.0.1
+# Version 0.0.2
 
-# Install all needed tools in a fresh mac worktree
+# Install all needed tools on a fresh mac
 
 force_installation=1
 
@@ -186,6 +186,10 @@ function install_terminal() {
     else
         printAlreadyInstall
     fi
+
+    # git : version control system 
+    # https://git-scm.com/
+    brewInstall git
 
     # AutoJump : a faster way to navigate in the filesystem
     # https://github.com/wting/autojump
