@@ -299,6 +299,11 @@ function install_ci() {
     # Docker : Container engine
     # https://www.docker.com/
     caskInstall docker
+
+    # Kubernetes : Container orchestration
+    # https://kubernetes.io
+    brewInstall brew install kubernetes-cli
+    caskInstall minikube
 }
 
 #########################################################
@@ -359,6 +364,10 @@ function install_productivity() {
     # Dropbox : oneline storage
     # https://www.dropbox.com/
     caskInstall dropbox
+
+    # Evernote : not organize
+    # https://evernote.com/
+    caskInstall evernote
 
     # Better Touch tool : powerful shortcuts customisation
     # https://folivora.ai/
