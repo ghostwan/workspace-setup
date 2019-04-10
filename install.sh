@@ -207,6 +207,10 @@ function install_terminal() {
     # https://github.com/PhrozenByte/rmtrash
     brewInstall rmtrash
 
+    # tree : list directories tree
+    # https://www.geeksforgeeks.org/tree-command-unixlinux/
+    brewInstall tree
+
     # ssh-copy-id : use locally available keys to authorise logins on a remote machine
     # https://www.ssh.com/ssh/copy-id
     brewInstall ssh-copy-id
