@@ -1,4 +1,4 @@
-# Workspace installer
+# Workspace setup
 
 This script is installing all the tools / apps / commands that I need for my workspace for Mac OS X.
 This script is self contained (doesn't need any other script) and bootstrap itself (install all needed tools for it to work), the only things needed are a shell and curl.
