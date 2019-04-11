@@ -171,21 +171,7 @@ function install_terminal() {
 
     # zsh : Powerful unix shell
     # https://doc.ubuntu-fr.org/zsh
-    # Oh My Zsh: Framework for managing your zsh configuration
-    # https://github.com/robbyrussell/oh-my-zsh
-    checkCommand zsh
-    if [ $? -ne 0 ]; then
-        printNotInstall
-        printDoYouWant $2
-        if [ $? -eq 0 ]; then
-            printInstallingBy "brew" zsh
-            brew install zsh
-            printInstallingBy "curl" "oh my zsh"
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        fi
-    else
-        printAlreadyInstall
-    fi
+    brewInstall zsh
 
     # git : version control system 
     # https://git-scm.com/
