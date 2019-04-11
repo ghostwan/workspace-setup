@@ -16,6 +16,6 @@ You can force the installation by giving the "-f" flag. You can add the fun pack
 
 You can start it on a terminal by doing:
 
-> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/install.sh)"
+> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install.sh)"
 
 
