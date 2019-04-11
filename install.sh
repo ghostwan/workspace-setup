@@ -191,6 +191,10 @@ function install_terminal() {
     # https://git-scm.com/
     brewInstall git
 
+    # gws : a git workspace manager
+    # https://github.com/StreakyCobra/gws
+    brewInstall gws
+
     # AutoJump : a faster way to navigate in the filesystem
     # https://github.com/wting/autojump
     brewInstall autojump
