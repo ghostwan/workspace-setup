@@ -469,7 +469,7 @@ package=1
 while getopts "h?vfc:px" opt; do
     case "$opt" in
     h | \?)
-        echo "Usage: install.sh [-h] [-f] [-c <category> | -p <package>]
+        echo "Usage: install_stack.sh [-h] [-f] [-c <category> | -p <package>]
 \nOptions:
 -h Show this screen 
 -f force app installation
