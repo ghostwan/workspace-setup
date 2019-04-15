@@ -179,6 +179,10 @@ function install_base() {
     # gws : a git workspace manager
     # https://github.com/StreakyCobra/gws
     brewInstall gws
+
+    # rmtrash : Put files (and directories) in trash
+    # https://github.com/PhrozenByte/rmtrash
+    brewInstall rmtrash
 }
 #########################################################
 ################## TERMINAL TOOLING ##################
@@ -195,10 +199,6 @@ function install_terminal() {
     # htop : an interactive process viewer for Unix systems
     # https://hisham.hm/htop/
     brewInstall htop
-
-    # rmtrash : Put files (and directories) in trash
-    # https://github.com/PhrozenByte/rmtrash
-    brewInstall rmtrash
 
     # tree : list directories tree
     # https://www.geeksforgeeks.org/tree-command-unixlinux/
