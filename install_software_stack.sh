@@ -69,15 +69,15 @@ function printDoYouWant() {
     if [ $force_installation -eq 0 ]; then
         return 0
     fi
-    while true; do
-        read -p "Do you wish to install $1? " yn
-        case $yn in
-        [Yy]*) return 0 ;;
-        [Nn]*) return 1 ;;
-        [Qq]*) exit ;;
-        *) echo "Please answer yes, no or quit" ;;
-        esac
-    done
+    read -p "Do you want to install $1? ([y]es, [a]ll or [N]o): "
+    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
+        y|yes) return 0 ;;
+        a|all) 
+            force_installation=0 
+            return 0 
+            ;;
+        *)     return 1 ;;
+    esac
 }
 
 function installBy() {
