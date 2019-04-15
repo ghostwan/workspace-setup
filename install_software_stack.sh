@@ -161,10 +161,9 @@ function install_packageManager() {
 }
 
 #########################################################
-################## TERMINAL TOOLING ##################
+################## BASE TOOLING ##################
 #########################################################
-function install_terminal() {
-
+function install_base() {
     # iTerm2 : Powerful emulator
     # https://www.iterm2.com/
     caskInstall iterm2
@@ -180,7 +179,11 @@ function install_terminal() {
     # gws : a git workspace manager
     # https://github.com/StreakyCobra/gws
     brewInstall gws
-
+}
+#########################################################
+################## TERMINAL TOOLING ##################
+#########################################################
+function install_terminal() {
     # AutoJump : a faster way to navigate in the filesystem
     # https://github.com/wting/autojump
     brewInstall autojump
@@ -208,6 +211,10 @@ function install_terminal() {
     # sshpass : noninteractive ssh password provider
     # https://linux.die.net/man/1/sshpass
     brewInstall sshpass
+
+    # unrar : unarchiver for rar tool
+    # https://www.wikiwand.com/fr/WinRAR
+    brewInstall unrar
 }
 
 #########################################################
@@ -474,7 +481,7 @@ while getopts "h?vfc:px" opt; do
 -h Show this screen 
 -f force app installation
 -c choose which category to install (default is all) among :
-    terminal genericDev androidDev pythonDev ci hacking web productivity communication os multimedia design fun  
+    base terminal genericDev androidDev pythonDev ci hacking web productivity communication os multimedia design fun  
 -p installation of a package 
 -x add fun package" >&2
         exit 0
@@ -505,6 +512,7 @@ elif [ $package -eq 0 ]; then
     $remaining_args
 else
     install_packageManager
+    install_base
     install_terminal
     install_genericDev
     install_androidDev

@@ -21,7 +21,7 @@ full_stack=$answer
 if [ $full_stack = true ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh)"    
 else
-    curl https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh | bash -s -- -f -c terminal
+    curl https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh | bash -s -- -f -c base
 fi
 
 read -p "Where do you want to clone the workspace ? (current directory): "
