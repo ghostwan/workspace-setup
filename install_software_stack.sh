@@ -100,6 +100,11 @@ function brewInstall() {
     installBy brew $1 $?
 }
 
+function brewInstallName() {
+    checkCommand $1
+    installBy brew $2 $?
+}
+
 function pipInstall() {
     checkCommand $1
     installBy pip $1 $?
@@ -183,6 +188,14 @@ function install_base() {
     # rmtrash : Put files (and directories) in trash
     # https://github.com/PhrozenByte/rmtrash
     brewInstall rmtrash
+
+    # hub : Tools to esase the use of github
+    # https://github.com/github/hub
+    brewInstall hub
+
+    # lab : Tools to esase the use of gitlab
+    # https://github.com/zaquestion/lab
+    brewInstallName lab zaquestion/tap/lab
 }
 #########################################################
 ################## TERMINAL TOOLING ##################
