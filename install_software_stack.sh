@@ -189,13 +189,9 @@ function install_base() {
     # https://github.com/PhrozenByte/rmtrash
     brewInstall rmtrash
 
-    # hub : Tools to esase the use of github
-    # https://github.com/github/hub
-    brewInstall hub
-
-    # lab : Tools to esase the use of gitlab
-    # https://github.com/zaquestion/lab
-    brewInstallName lab zaquestion/tap/lab
+    # jq: command-line JSON processor
+    # https://stedolan.github.io/jq/
+    brewInstall jq
 }
 #########################################################
 ################## TERMINAL TOOLING ##################
@@ -228,6 +224,14 @@ function install_terminal() {
     # unrar : unarchiver for rar tool
     # https://www.wikiwand.com/fr/WinRAR
     brewInstall unrar
+
+    # hub : Tools to esase the use of github
+    # https://github.com/github/hub
+    brewInstall hub
+
+    # lab : Tools to esase the use of gitlab
+    # https://github.com/zaquestion/lab
+    brewInstallName lab zaquestion/tap/lab
 }
 
 #########################################################
