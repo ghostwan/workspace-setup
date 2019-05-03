@@ -490,17 +490,25 @@ category=""
 fun=1
 package=1
 
+display_usage() {
+  echo
+  echo "Usage: ${0##*/} [-h] [-f] [-c <category> | -p <package>]"
+  echo
+  echo " -h             Display usage instructions"
+  echo
+  echo " -f             Force app installation"
+  echo " -x             Add fun package"
+  echo " -p <package>   Installation of a specific package "
+  echo " -c <category>  Choose which category to install (default is all) among :"
+  echo "base terminal genericDev androidDev pythonDev ci hacking web productivity communication os multimedia design fun"
+  echo
+}
+
+
 while getopts "h?vfc:px" opt; do
     case "$opt" in
     h | \?)
-        echo "Usage: install_stack.sh [-h] [-f] [-c <category> | -p <package>]
-\nOptions:
--h Show this screen 
--f force app installation
--c choose which category to install (default is all) among :
-    base terminal genericDev androidDev pythonDev ci hacking web productivity communication os multimedia design fun  
--p installation of a package 
--x add fun package" >&2
+        display_usage
         exit 0
         ;;
     f)
