@@ -449,6 +449,10 @@ function install_multimedia() {
     # Spotify : Music streaming 
     # https://www.spotify.com/
     caskInstall spotify
+
+    # Whatsapp : Music streaming 
+    # https://www.whatsapp.com/
+    caskInstall whatsapp
 }
 
 #########################################################
