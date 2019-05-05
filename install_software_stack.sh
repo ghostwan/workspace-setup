@@ -383,9 +383,13 @@ function install_productivity() {
     # https://www.dropbox.com/
     caskInstall dropbox
 
-    # Evernote : not organize
+    # Evernote : organize
     # https://evernote.com/
-    caskInstall evernote
+    # caskInstall evernote
+
+    # Notion : evernote replacement
+    # https://www.notion.so/
+    caskInstall notion
 
     # Better Touch tool : powerful shortcuts customisation
     # https://folivora.ai/
