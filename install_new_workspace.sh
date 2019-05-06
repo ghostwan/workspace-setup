@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function print() {
     printf "\033[0;33m $1 \033[0m"

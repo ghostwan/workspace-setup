@@ -1,4 +1,4 @@
-# !/bin/sh
+# !/bin/bash
 # Version 0.0.2
 
 # Install all needed tools on a fresh mac
