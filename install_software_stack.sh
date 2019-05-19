@@ -239,6 +239,9 @@ function install_terminal() {
 #########################################################
 function install_genericDev() {
 
+    # Last java / jdk version
+    caskInstall java
+
     # Visual Studio Code : Powerful code editor
     # https://code.visualstudio.com/
     # My setup : https://gist.github.com/ghostwan/fdf88470e77989592e6651c195bdb8ff
@@ -431,6 +434,10 @@ function install_os() {
     # DaisyDisk : disk analyser
     # https://daisydiskapp.com/
     caskInstall daisydisk
+
+    # The unarchiver: multi zip unarchiver
+    # https://theunarchiver.com/
+    caskInstall the-unarchiver
 }
 
 #########################################################
