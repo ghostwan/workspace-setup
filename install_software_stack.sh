@@ -449,6 +449,10 @@ function install_multimedia() {
     # http://mplayerx.org
     caskInstall mplayerx
 
+    # VLC : video player  
+    # https://www.videolan.org/vlc/index.fr.html
+    caskInstall vlc
+
     # SusbMarine : subtitles downloader
     # https://cocoawithchurros.com/subsmarine.php
     caskInstall subsmarine
