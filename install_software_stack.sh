@@ -468,6 +468,10 @@ function install_multimedia() {
     # Whatsapp : Music streaming 
     # https://www.whatsapp.com/
     caskInstall whatsapp
+
+    # Molotov : TV  
+    # https://www.molotov.tv/
+    caskInstall molotov
 }
 
 #########################################################
