@@ -355,7 +355,7 @@ function install_web() {
     # https://insomnia.rest/
     caskInstall insomnia
 
-    # Chromme : Web browser
+    # Chrome : Web browser
     # https://www.google.com/chrome/
     caskInstall google-chrome
 
@@ -367,6 +367,9 @@ function install_web() {
     # http://mullvad.net/
     caskInstall mullvadvpn
 
+    # Brave : Web browser
+    # https://brave.com/
+    caskInstall brave-browser
 }
 
 #########################################################
@@ -423,7 +426,6 @@ function install_communication() {
     # Shift : Account manager
     # https://tryshift.com/
     manualInstall Shift https://tryshift.com/
-
 }
 
 #########################################################
