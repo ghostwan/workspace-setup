@@ -1,6 +1,6 @@
 # !/bin/bash
 # Version 0.0.2
-
+# WIP
 # Install all needed tools on a fresh mac
 
 force_installation=1
@@ -33,38 +33,6 @@ function checkCommand() {
     command -v $1 >/dev/null 2>&1
 }
 
-function checkCommandMas() {
-    printIsExits $1
-    result=$1.app
-    resultroot=/Applications/$result
-    resulthome=$HOME/Applications/$result
-    if [ -d "$resultroot" ] || [ -d "$resulthome" ]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-function checkCommandCask() {
-    printIsExits $1
-    brew cask info $1 >/dev/null 2>&1
-    if [ $? -eq 1 ]; then
-        return 2
-    else
-        result="$(brew cask info $1 | awk 'END{print}' | perl -wlne 'print /([a-zA-Z\-\ 1-9]+\.app)/')"
-    fi
-    if [ -z "$result" ]; then
-        result=$1.app
-    fi
-    resultroot=/Applications/$result
-    resulthome=$HOME/Applications/$result
-    if [ -d "$resultroot" ] || [ -d "$resulthome" ]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
 function printDoYouWant() {
     if [ $force_installation -eq 0 ]; then
         return 0
@@ -85,7 +53,7 @@ function installBy() {
         printNotInstall
         printDoYouWant $2
         if [ $? -eq 0 ]; then
-            printInstallingBy "$1" $2
+            printInstallingBy "$1" $2aptgetInstall
             $1 install $2
         fi
     elif [ $3 -eq 2 ]; then
@@ -95,14 +63,9 @@ function installBy() {
     fi
 }
 
-function brewInstall() {
+function aptgetInstall() {
     checkCommand $1
-    installBy brew $1 $?
-}
-
-function brewInstallName() {
-    checkCommand $1
-    installBy brew $2 $?
+    installBy apt-get $1 $?
 }
 
 function pipInstall() {
@@ -110,14 +73,9 @@ function pipInstall() {
     installBy pip $1 $?
 }
 
-function masInstall() {
+function snapInstall() {
     checkCommandMas $1 $2
-    installBy mas $2 $?
-}
-
-function caskInstall() {
-    checkCommandCask $1
-    installBy 'brew cask' $1 $?
+    installBy snap $2 $?
 }
 
 function manualInstall() {
@@ -139,7 +97,7 @@ function install_packageManager() {
     # https://brew.sh/index_fr
     checkCommand brew
     if [ $? -ne 0 ]; then
-        printInstallingBy "curl" brew
+        printInstallingBy "curl" brewnpm i -g bash-language-serve
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     else
         printAlreadyInstall
@@ -157,11 +115,7 @@ function install_packageManager() {
 
     # npm : package manager for JS
     # https://www.npmjs.com/
-    brewInstall npm
-
-    # mas : A simple command line interface for the Mac App Store
-    # https://github.com/mas-cli/mas
-    brewInstall mas
+    aptgetInstall npm 
 
 }
 
@@ -171,15 +125,15 @@ function install_packageManager() {
 function install_base() {
     # iTerm2 : Powerful emulator
     # https://www.iterm2.com/
-    caskInstall iterm2
+    #caskInstall iterm2
 
     # zsh : Powerful unix shell
     # https://doc.ubuntu-fr.org/zsh
-    brewInstall zsh
+    aptgetInstall zsh
 
     # git : version control system 
     # https://git-scm.com/
-    brewInstall git
+    aptgetInstall git
 
     # gws : a git workspace manager
     # https://github.com/StreakyCobra/gws
@@ -373,7 +327,7 @@ function install_productivity() {
 
     # Alfed : Poweful spotlight
     # https://www.alfredapp.com/
-    caskInstall alfred
+    aptgetInstall albert
 
     # Dash : API documentation browser
     # https://kapeli.com/dash

@@ -19,9 +19,9 @@ ask_yes_or_no "Do you want to install the full stack ?"
 full_stack=$answer
 
 if [ $full_stack = true ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh)"    
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/ubuntu/install_software_stack.sh)"    
 else
-    curl https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh | bash -s -- -f -c base
+    curl https://raw.githubusercontent.com/ghostwan/workspace-setup/ubuntu/install_software_stack.sh | bash -s -- -f -c base
 fi
 
 read -p "Where do you want to clone the workspace ? (current directory): "
