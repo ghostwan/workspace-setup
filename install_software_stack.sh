@@ -404,6 +404,10 @@ function install_productivity() {
     # Better Snap tool : manage your window positions and sizes
     # https://folivora.ai/bettersnaptool
     masInstall BetterSnapTool 417375580
+
+    # MacDown : Markdown editor:
+    # https://macdown.uranusjr.com/
+    caskInstall macdown
 }
 
 #########################################################
@@ -474,6 +478,10 @@ function install_multimedia() {
     # Molotov : TV  
     # https://www.molotov.tv/
     caskInstall molotov
+
+    # Youtube-dl : Youtube downloader
+    # https://ytdl-org.github.io/youtube-dl/index.html
+    brewInstall youtube-dl
 }
 
 #########################################################
