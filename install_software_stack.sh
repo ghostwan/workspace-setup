@@ -482,6 +482,10 @@ function install_multimedia() {
     # Youtube-dl : Youtube downloader
     # https://ytdl-org.github.io/youtube-dl/index.html
     brewInstall youtube-dl
+
+    # ffmepg : record library
+    # https://ffmpeg.org/
+    brewInstall ffmepg
 }
 
 #########################################################
