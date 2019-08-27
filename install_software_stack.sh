@@ -93,16 +93,6 @@ function manualInstall() {
 #########################################################
 function install_packageManager() {
 
-    # Hombrew : package manager for macOS (or Linux)
-    # https://brew.sh/index_fr
-    checkCommand brew
-    if [ $? -ne 0 ]; then
-        printInstallingBy "curl" brewnpm i -g bash-language-serve
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    else
-        printAlreadyInstall
-    fi
-
     # pip : package installer for Python
     # https://pypi.org/project/pip/
     checkCommand pip
