@@ -408,6 +408,10 @@ function install_productivity() {
     # MacDown : Markdown editor:
     # https://macdown.uranusjr.com/
     caskInstall macdown
+
+    # Skitch : Screenshoot tools 
+    # https://evernote.com/intl/fr/products/skitch
+    caskInstall skitch
 }
 
 #########################################################
