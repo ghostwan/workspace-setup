@@ -258,6 +258,10 @@ function install_genericDev() {
     # SQLite Browser : browser for sql database
     # https://sqlitebrowser.org/
     caskInstall db-browser-for-sqlite
+
+    # Cacher: Snippet manager
+    # https://www.cacher.io/
+    caskInstall cacher
 }
 
 #########################################################
