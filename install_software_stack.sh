@@ -304,6 +304,10 @@ function install_androidDev() {
     # KeyStore Explorer : Keystore management
     # http://keystore-explorer.org/
     caskInstall keystore-explorer
+
+    # Export remoote for android device
+    # https://github.com/Genymobile/scrcpy
+    brewInstall scrcpy
 }
 
 #########################################################
