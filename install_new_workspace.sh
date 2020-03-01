@@ -7,49 +7,117 @@ function println() {
     printf "\033[0;33m $1 \033[0m\n"
 }
 
-function ask_yes_or_no() {
+function ask_yes_or_No() { # The Captial letter is the default one
     read -p "$1 ([y]es or [N]o): "
     case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
-        y|yes) answer=true ;;
-        *)     answer=false ;;
+        y|yes) return 0 ;;
+        *)     return 1 ;;
     esac
 }
 
-ask_yes_or_no "Do you want to install the full stack ?"
-full_stack=$answer
+function question_ready_to() {
+    printf "\033[0;100m !! Tap enter to $1 ... \033[0m"
+    read -p "  "
+}
 
-if [ $full_stack = true ]; then
+function selectAmongValues(){
+    select RESULT in $1 
+    do
+      if [ -z "$RESULT" ]
+      then
+          echo "Invalid entry. Retry!"
+      else
+          echo "You have chosen $RESULT"
+          break #To end the loop remove otherwise
+      fi
+    done
+}
+
+function getExistingSSHKey() {
+    println "Looking for SSH key..."
+    files=$( ls ~/.ssh/*.pub)
+    selectAmongValues "${files[@]}"
+    RESULT=$(cat $RESULT)
+}
+
+function generateSSHKey(){
+  println "Generating SSH key..."
+  read -p "What is your email? "
+  ssh-keygen -t rsa -b 4096 -C $REPLY
+  getExistingSSHKey 
+}
+
+function openLink(){
+    case "$OSTYPE" in
+        linux*)     xdg-open $1 > /dev/null 2>&1;;
+        darwin*)    open $1;;
+        *)          printAlert "system not handle";;
+    esac
+}
+
+function copyContentClipboard(){
+    case "$OSTYPE" in
+        linux*)     echo "$1" | xclip -selection c ;;
+        darwin*)    echo "$1" | pbcopy;;
+        *)          printAlert "system not handle";;
+    esac
+}
+
+function getWorkingBranch () {
+  RESULT=$(git branch --all --format='%(refname:short)')
+  RESULT="${RESULT//origin\//}"
+  selectAmongValues "${RESULT[@]}"
+}
+
+
+if ! ask_yes_or_No "Did you add your ssh key on gihub ?"
+then
+    keys=$(ls ~/.ssh/*.pub)
+    if [ $? -eq 0 ]; then
+        getExistingSSHKey
+    else
+        generateSSHKey
+    fi
+    println "Your public key is:"
+    println "$RESULT"
+    copyContentClipboard "$RESULT"
+    println "Key copied in the clipboard!"
+    question_ready_to "to open github settings"
+    openLink https://github.com/settings/ssh/new
+fi
+
+if ask_yes_or_No "Do you want to install the full stack ?"
+then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh)"    
 else
     curl https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh | bash -s -- -f -c base
 fi
 
+# For testing purpose
 read -p "Where do you want to clone the workspace ? (current directory): "
 path=$REPLY
 if [ -n "$path" ]; then
     println "Going to $path"
     eval cd $path
 fi
+
 println "Cloning workspace..."
 # Replace this repo by your own private workspace, this is my private gws config
 # This repo has a file .projects.gws that describe workspace tree
 # Each branch is a different configuration, master is the core one then I have: personal, work, doc
 # To know more about gws: https://github.com/StreakyCobra/gws 
-git clone https://ghostwan@github.com/ghostwan/workspace
+git clone git@github.com:ghostwan/workspace.git
 cd workspace
 rm -f .cache.gws*
-branches=$(git branch -r)
-echo "What configuration do you want ?:" 
-branches="${branches/master/master\n}"
-println "${branches//origin\//}"
-read -p ": " branch
-git checkout $branch
+getWorkingBranch
+git checkout $RESULT
 gws update
 # Replace this part by your configuration
 # Finalize my workspace installation by configuring my apps as zsh, alfred, iterm ...
 # Import paid app licence and create symlink
-ask_yes_or_no "Do you want to configure the software ?"
-if [ $answer = true ]; then 
+
+if ask_yes_or_No "Do you want to configure the software ?"
+then
     # I cloned a repo named configs where I put all my app configs
     config_directory=$(pwd)"/configs"
 
