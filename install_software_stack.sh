@@ -419,7 +419,12 @@ function install_productivity() {
 
     # Skitch : Screenshoot tools 
     # https://evernote.com/intl/fr/products/skitch
-    caskInstall skitch
+    # Not needed if mac os catalin installed
+    # caskInstall skitch
+
+    # Password manager
+    # https://bitwarden.com/
+    caskInstall bitwarden
 }
 
 #########################################################
