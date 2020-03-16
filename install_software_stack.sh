@@ -397,10 +397,6 @@ function install_productivity() {
     # https://www.dropbox.com/
     caskInstall dropbox
 
-    # Evernote : organize
-    # https://evernote.com/
-    # caskInstall evernote
-
     # Notion : evernote replacement
     # https://www.notion.so/
     caskInstall notion
@@ -416,11 +412,6 @@ function install_productivity() {
     # MacDown : Markdown editor:
     # https://macdown.uranusjr.com/
     caskInstall macdown
-
-    # Skitch : Screenshoot tools 
-    # https://evernote.com/intl/fr/products/skitch
-    # Not needed if mac os catalin installed
-    # caskInstall skitch
 
     # Password manager
     # https://bitwarden.com/
