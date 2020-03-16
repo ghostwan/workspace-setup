@@ -438,6 +438,10 @@ function install_communication() {
     # Shift : Account manager
     # https://tryshift.com/
     manualInstall Shift https://tryshift.com/
+
+    # Tunnel Blick : VPN
+    # https://tunnelblick.net/
+    caskInstall Tunnelblick
 }
 
 #########################################################
