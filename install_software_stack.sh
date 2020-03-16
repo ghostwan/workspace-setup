@@ -371,13 +371,6 @@ function install_web() {
     # https://panic.com/transmit/
     caskInstall transmit
 
-    # MullvadVPN : VPN
-    # http://mullvad.net/
-    caskInstall mullvadvpn
-
-    # Brave : Web browser
-    # https://brave.com/
-    caskInstall brave-browser
 }
 
 #########################################################
