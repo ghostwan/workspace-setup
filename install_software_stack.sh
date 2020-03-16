@@ -371,6 +371,9 @@ function install_web() {
     # https://panic.com/transmit/
     caskInstall transmit
 
+    # Tor Browser : Anonymous browser
+    # https://www.torproject.org/
+    caskInstall tor-browser
 }
 
 #########################################################
@@ -434,7 +437,7 @@ function install_communication() {
 
     # Tunnel Blick : VPN
     # https://tunnelblick.net/
-    caskInstall Tunnelblick
+    caskInstall tunnelblick
 }
 
 #########################################################
