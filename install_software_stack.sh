@@ -181,6 +181,10 @@ function install_base() {
     # https://git-scm.com/
     brewInstall git
 
+    # git-gui : version control system 
+    # https://git-scm.com/
+    brewInstall git-gui
+
     # gws : a git workspace manager
     # https://github.com/StreakyCobra/gws
     brewInstall gws
@@ -495,6 +499,10 @@ function install_multimedia() {
     # ffmepg : record library
     # https://ffmpeg.org/
     brewInstall ffmepg
+
+    # popcorntime : Watch movie and tv shows
+    # https://popcorntime.app/fr/
+    manualInstall PopcornTime https://popcorntime.app/fr/
 }
 
 #########################################################
