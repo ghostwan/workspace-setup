@@ -28,6 +28,10 @@ function printInstallingBy() {
     printf "\033[1mInstalling by $1 $2...\033[0m\n"
 }
 
+function println() {
+    printf "\033[0;33m $1 \033[0m\n"
+}
+
 function checkCommand() {
     printIsExits $1
     command -v $1 >/dev/null 2>&1
@@ -144,6 +148,9 @@ function install_packageManager() {
     else
         printAlreadyInstall
     fi
+
+    println "updating brew..."
+    brew update
 
     # pip : package installer for Python
     # https://pypi.org/project/pip/
