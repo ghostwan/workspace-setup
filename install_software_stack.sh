@@ -4,6 +4,9 @@
 # Install all needed tools on a fresh mac
 
 force_installation=1
+info=""
+url=""
+export HOMEBREW_CASK_OPTS="--no-quarantine"
 
 #########################################################
 ################## INSTALL UTILITY ##################
@@ -30,6 +33,11 @@ function printInstallingBy() {
 
 function println() {
     printf "\033[0;33m $1 \033[0m\n"
+}
+
+function printInfo() {
+    printf "    \033[0;100m $info \033[0m => \033[0;34m $url \033[0m \n"
+    echo ""
 }
 
 function checkCommand() {
@@ -73,7 +81,8 @@ function printDoYouWant() {
     if [ $force_installation -eq 0 ]; then
         return 0
     fi
-    read -p "Do you want to install $1? ([y]es, [a]ll or [N]o): "
+    printf "Do you want to install \033[0;33m $1 \033[0m? (\033[0;91m[N]o\033[0m"
+    read -p ", [a]ll or [y]es): "
     case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
         y|yes) return 0 ;;
         a|all) 
@@ -87,6 +96,7 @@ function printDoYouWant() {
 function installBy() {
     if [ $3 -eq 1 ]; then
         printNotInstall
+        printInfo
         printDoYouWant $2
         if [ $? -eq 0 ]; then
             printInstallingBy "$1" $2
@@ -162,12 +172,12 @@ function install_packageManager() {
         printAlreadyInstall
     fi
 
-    # npm : package manager for JS
-    # https://www.npmjs.com/
+    info="npm : package manager for JS"
+    url="https://www.npmjs.com/"
     brewInstall npm
 
-    # mas : A simple command line interface for the Mac App Store
-    # https://github.com/mas-cli/mas
+    info="mas : A simple command line interface for the Mac App Store"
+    url="https://github.com/mas-cli/mas"
     brewInstall mas
 
 }
@@ -176,76 +186,76 @@ function install_packageManager() {
 ################## BASE TOOLING ##################
 #########################################################
 function install_base() {
-    # iTerm2 : Powerful emulator
-    # https://www.iterm2.com/
+    info="Powerful terminal"
+    url="https://www.iterm2.com/"
     caskInstall iterm2
 
-    # zsh : Powerful unix shell
-    # https://doc.ubuntu-fr.org/zsh
+    info="Powerful unix shell"
+    url="https://doc.ubuntu-fr.org/zsh"
     brewInstall zsh
 
-    # git : version control system 
-    # https://git-scm.com/
+    info="version control system" 
+    url="https://git-scm.com/"
     brewInstall git
 
-    # git-gui : version control system 
-    # https://git-scm.com/
+    info="GUI to commit"
+    url="https://git-scm.com/"
     brewInstall git-gui
 
-    # gws : a git workspace manager
-    # https://github.com/StreakyCobra/gws
+    info="a git workspace manager"
+    url="https://github.com/StreakyCobra/gws"
     brewInstall gws
 
-    # rmtrash : Put files (and directories) in trash
-    # https://github.com/PhrozenByte/rmtrash
+    info="Put files (and directories) in trash"
+    url="https://github.com/PhrozenByte/rmtrash"
     brewInstall rmtrash
 
-    # jq: command-line JSON processor
-    # https://stedolan.github.io/jq/
+    info="command-line JSON processor"
+    url="https://stedolan.github.io/jq/"
     brewInstall jq
 
-    # Password manager
-    # https://bitwarden.com/
+    info="Password manager"
+    url="https://bitwarden.com/"
     caskInstall bitwarden
 }
 #########################################################
 ################## TERMINAL TOOLING ##################
 #########################################################
 function install_terminal() {
-    # AutoJump : a faster way to navigate in the filesystem
-    # https://github.com/wting/autojump
+    info="a faster way to navigate in the filesystem"
+    url="https://github.com/wting/autojump"
     brewInstall autojump
 
-    # wget : retrieves content from web servers
-    # https://www.wikiwand.com/fr/GNU_Wget
+    info="retrieves content from web servers"
+    url="https://www.wikiwand.com/fr/GNU_Wget"
     brewInstall wget
 
-    # htop : an interactive process viewer for Unix systems
-    # https://hisham.hm/htop/
+    info="an interactive process viewer for Unix systems"
+    url="https://hisham.hm/htop/"
     brewInstall htop
 
-    # tree : list directories tree
-    # https://www.geeksforgeeks.org/tree-command-unixlinux/
+    info="list directories tree"
+    url="https://www.geeksforgeeks.org/tree-command-unixlinux/"
     brewInstall tree
 
-    # ssh-copy-id : use locally available keys to authorise logins on a remote machine
-    # https://www.ssh.com/ssh/copy-id
+    info="use locally available keys to authorise logins on a remote machine"
+    url="https://www.ssh.com/ssh/copy-id"
     brewInstall ssh-copy-id
 
-    # sshpass : noninteractive ssh password provider
-    # https://linux.die.net/man/1/sshpass
+    info="noninteractive ssh password provider"
+    url="https://linux.die.net/man/1/sshpass"
     brewInstall sshpass
 
-    # unrar : unarchiver for rar tool
-    # https://www.wikiwand.com/fr/WinRAR
+    info="unarchiver for rar tool"
+    url="https://www.wikiwand.com/fr/WinRAR"
     brewInstall unrar
 
-    # hub : Tools to esase the use of github
-    # https://github.com/github/hub
+    info="Tools to esase the use of github"
+    url="https://github.com/github/hub"
     brewInstall hub
 
-    # lab : Tools to esase the use of gitlab
-    # https://github.com/zaquestion/lab
+    info="Tools to esase the use of gitlab"
+    url="https://github.com/zaquestion/lab"
     brewInstallName lab zaquestion/tap/lab
 }
 
@@ -254,28 +264,29 @@ function install_terminal() {
 #########################################################
 function install_genericDev() {
 
-    # Last java / jdk version
-    caskInstall java
+    info="Last java / jdk version"
+    url="https://adoptopenjdk.net/"
+    caskInstall adoptopenjdk
 
-    # Visual Studio Code : Powerful code editor
-    # https://code.visualstudio.com/
+    info="Powerful code editor"
+    url="https://code.visualstudio.com/"
     # My setup : https://gist.github.com/ghostwan/fdf88470e77989592e6651c195bdb8ff
     caskInstall visual-studio-code
 
-    # Intellij IDEA : The most porweful IDE
-    # https://www.jetbrains.com/idea/
+    info="The most porweful IDE"
+    url="https://www.jetbrains.com/idea/"
     caskInstall intellij-idea-ce
 
-    # DiffMerge : Visually compare and merge files
-    # https://sourcegear.com/diffmerge/
+    info="Visually compare and merge files"
+    url="https://sourcegear.com/diffmerge/"
     caskInstall diffmerge
 
-    # SQLite Browser : browser for sql database
-    # https://sqlitebrowser.org/
+    info="SQLite Browser : browser for sql database"
+    url="https://sqlitebrowser.org/"
     caskInstall db-browser-for-sqlite
 
-    # Cacher: Snippet manager
-    # https://www.cacher.io/
+    info="Cacher: Snippet manager"
+    url="https://www.cacher.io/"
     caskInstall cacher
 }
 
@@ -284,44 +295,44 @@ function install_genericDev() {
 #########################################################
 function install_androidDev() {
 
-    # Android Studio : provides the fastest tools for building apps on every type of Android device.ou
-    # https://developer.android.com/studio
+    info="provides the fastest tools for building apps on every type of Android device"
+    url="https://developer.android.com/studio"
     caskInstall android-studio
 
-    # APKtool : A tool for reverse engineering 3rd party, closed, binary Android apps
-    # https://ibotpeaches.github.io/Apktool/
+    info="APKtool : A tool for reverse engineering 3rd party, closed, binary Android apps"
+    url="https://ibotpeaches.github.io/Apktool/"
     brewInstall apktool
 
-    # pidcat : Colored logcat script which only shows log entries for a specific application package.
-    # https://github.com/JakeWharton/pidcat
+    info="Colored logcat script which only shows log entries for a specific application package."
+    url="https://github.com/JakeWharton/pidcat"
     brewInstall pidcat
 
-    # Tools to work with android .dex and java .class files
-    # https://sourceforge.net/p/dex2jar/wiki/UserGuide/
+    info="Tools to work with android .dex and java .class files"
+    url="https://sourceforge.net/p/dex2jar/wiki/UserGuide/"
     brewInstall dex2jar
 
-    # Java decompiler
-    # https://www.benf.org/other/cfr/
+    info="Java decompiler"
+    url="https://www.benf.org/other/cfr/"
     brewInstall cfr-decompiler
 
-    # Java decompiler
-    # http://java-decompiler.github.io/
+    info="Java decompiler"
+    url="http://java-decompiler.github.io/"
     caskInstall jd-gui
 
-    # Hand Shaker : Android file transfer
-    # https://www.smartisan.com/
+    info="Hand Shaker : Android file transfer"
+    url="https://www.smartisan.com/"
     caskInstall handshaker
 
-    # Vysor : Remote disaply for android
-    # https://www.vysor.io/
+    info="Vysor : Remote disaply for android"
+    url="https://www.vysor.io/"
     caskInstall vysor
 
-    # KeyStore Explorer : Keystore management
-    # http://keystore-explorer.org/
+    info="KeyStore Explorer : Keystore management"
+    url="http://keystore-explorer.org/"
     caskInstall keystore-explorer
 
-    # Export remoote for android device
-    # https://github.com/Genymobile/scrcpy
+    info="Export remoote for android device"
+    url="https://github.com/Genymobile/scrcpy"
     brewInstall scrcpy
 }
 
@@ -330,8 +341,8 @@ function install_androidDev() {
 #########################################################
 function install_pythonDev() {
 
-    # Anaconda : Machine learning environement
-    # https://www.anaconda.com/distribution/
+    info="Anaconda : Machine learning environement"
+    url="https://www.anaconda.com/distribution/"
     caskInstall anaconda
 }
 
@@ -340,13 +351,13 @@ function install_pythonDev() {
 #########################################################
 function install_ci() {
     
-    # Docker : Container engine
-    # https://www.docker.com/
+    info="Docker : Container engine"
+    url="https://www.docker.com/"
     caskInstall docker
 
-    # Kubernetes : Container orchestration
-    # https://kubernetes.io
-    brewInstall brew install kubernetes-cli
+    info="Kubernetes : Container orchestration"
+    url="https://kubernetes.io"
+    brewInstall kubernetes-cli
     caskInstall minikube
 }
 
@@ -355,16 +366,16 @@ function install_ci() {
 #########################################################
 function install_hacking() {
 
-    # WireShark : Network analyzer
-    # https://www.wireshark.org/
+    info="WireShark : Network analyzer"
+    url="https://www.wireshark.org/"
     caskInstall wireshark
 
-    # Mitmproxy : Man in the middle
-    # https://mitmproxy.org/
+    info="Mitmproxy : Man in the middle"
+    url="https://mitmproxy.org/"
     brewInstall mitmproxy
 
-    # Burp : Pen test
-    # https://portswigger.net/burp
+    info="Burp : Pen test"
+    url="https://portswigger.net/burp"
     caskInstall burp-suite
 
 }
@@ -374,20 +385,20 @@ function install_hacking() {
 #########################################################
 function install_web() {
 
-    # Insomnia : Rest client
-    # https://insomnia.rest/
+    info="Insomnia : Rest client"
+    url="https://insomnia.rest/"
     caskInstall insomnia
 
-    # Chrome : Web browser
-    # https://www.google.com/chrome/
+    info="Chrome : Web browser"
+    url="https://www.google.com/chrome/"
     caskInstall google-chrome
 
-    # Transmit : FTP Client
-    # https://panic.com/transmit/
+    info="Transmit : FTP Client"
+    url="https://panic.com/transmit/"
     caskInstall transmit
 
-    # Tor Browser : Anonymous browser
-    # https://www.torproject.org/
+    info="Tor Browser : Anonymous browser"
+    url="https://www.torproject.org/"
     caskInstall tor-browser
 }
 
@@ -396,32 +407,32 @@ function install_web() {
 #########################################################
 function install_productivity() {
 
-    # Alfed : Poweful spotlight
-    # https://www.alfredapp.com/
+    info="Alfed : Poweful spotlight"
+    url="https://www.alfredapp.com/"
     caskInstall alfred
 
-    # Dash : API documentation browser
-    # https://kapeli.com/dash
+    info="Dash : API documentation browser"
+    url="https://kapeli.com/dash"
     caskInstall dash
 
-    # Dropbox : oneline storage
-    # https://www.dropbox.com/
+    info="Dropbox : oneline storage"
+    url="https://www.dropbox.com/"
     caskInstall dropbox
 
-    # Notion : evernote replacement
-    # https://www.notion.so/
+    info="Notion : evernote replacement"
+    url="https://www.notion.so/"
     caskInstall notion
 
-    # Better Touch tool : powerful shortcuts customisation
-    # https://folivora.ai/
+    info="Better Touch tool : powerful shortcuts customisation"
+    url="https://folivora.ai/"
     caskInstall bettertouchtool
 
-    # Better Snap tool : manage your window positions and sizes
-    # https://folivora.ai/bettersnaptool
+    info="Better Snap tool : manage your window positions and sizes"
+    url="https://folivora.ai/bettersnaptool"
     masInstall BetterSnapTool 417375580
 
-    # MacDown : Markdown editor:
-    # https://macdown.uranusjr.com/
+    info="MacDown : Markdown editor:"
+    url="https://macdown.uranusjr.com/"
     caskInstall macdown
 
 }
@@ -431,24 +442,24 @@ function install_productivity() {
 #########################################################
 function install_communication() {
 
-    # Skype : visioconference
-    # https://www.skype.com
+    info="Skype : visioconference"
+    url="https://www.skype.com"
     caskInstall skype
 
-    # Slack : a collaboration hub for work
-    # https://slack.com
+    info="Slack : a collaboration hub for work"
+    url="https://slack.com"
     caskInstall slack
 
-    # TeamViewer : remote control
-    # https://www.teamviewer.com/
+    info="TeamViewer : remote control"
+    url="https://www.teamviewer.com/"
     caskInstall teamviewer
 
-    # Shift : Account manager
-    # https://tryshift.com/
+    info="Shift : Account manager"
+    url="https://tryshift.com/"
     manualInstall Shift https://tryshift.com/
 
-    # Tunnel Blick : VPN
-    # https://tunnelblick.net/
+    info="Tunnel Blick : VPN"
+    url="https://tunnelblick.net/"
     caskInstall tunnelblick
 }
 
@@ -457,12 +468,12 @@ function install_communication() {
 #########################################################
 function install_os() {
 
-    # DaisyDisk : disk analyser
-    # https://daisydiskapp.com/
+    info="DaisyDisk : disk analyser"
+    url="https://daisydiskapp.com/"
     caskInstall daisydisk
 
-    # The unarchiver: multi zip unarchiver
-    # https://theunarchiver.com/
+    info="The unarchiver: multi zip unarchiver"
+    url="https://theunarchiver.com/"
     caskInstall the-unarchiver
 }
 
@@ -471,44 +482,44 @@ function install_os() {
 #########################################################
 function install_multimedia() {
 
-    # MPlayerX : video player
-    # http://mplayerx.org
+    info="MPlayerX : video player"
+    url="http://mplayerx.org"
     caskInstall mplayerx
 
-    # VLC : video player  
-    # https://www.videolan.org/vlc/index.fr.html
+    info="VLC : video player"
+    url="https://www.videolan.org/vlc/index.fr.html"
     caskInstall vlc
 
-    # SusbMarine : subtitles downloader
-    # https://cocoawithchurros.com/subsmarine.php
+    info="SusbMarine : subtitles downloader"
+    url="https://cocoawithchurros.com/subsmarine.php"
     caskInstall subsmarine
 
-    # Transmission : torrent
-    # https://transmissionbt.com/
+    info="Transmission : torrent"
+    url="https://transmissionbt.com/"
     caskInstall transmission
 
-    # Spotify : Music streaming 
-    # https://www.spotify.com/
+    info="Spotify : Music streaming "
+    url="https://www.spotify.com/"
     caskInstall spotify
 
-    # Whatsapp : Music streaming 
-    # https://www.whatsapp.com/
+    info="Whatsapp : Music streaming" 
+    url="https://www.whatsapp.com/"
     caskInstall whatsapp
 
-    # Molotov : TV  
-    # https://www.molotov.tv/
+    info="Molotov : TV"
+    url="https://www.molotov.tv/"
     caskInstall molotov
 
-    # Youtube-dl : Youtube downloader
-    # https://ytdl-org.github.io/youtube-dl/index.html
+    info="Youtube-dl : Youtube downloader"
+    url="https://ytdl-org.github.io/youtube-dl/index.html"
     brewInstall youtube-dl
 
-    # ffmepg : record library
-    # https://ffmpeg.org/
+    info="ffmepg : record library"
+    url="https://ffmpeg.org/"
     brewInstall ffmepg
 
-    # popcorntime : Watch movie and tv shows
-    # https://popcorntime.app/fr/
+    info="popcorntime : Watch movie and tv shows"
+    url="https://popcorntime.app/fr/"
     manualInstall PopcornTime https://popcorntime.app/fr/
 }
 
@@ -517,12 +528,12 @@ function install_multimedia() {
 #########################################################
 function install_design() {
 
-    # Sketch : proto desgner
-    # https://www.sketch.com/
+    info="Sketch : proto desgner"
+    url="https://www.sketch.com/"
     caskInstall sketch
 
-    # Sketch : UI designer
-    # https://zeplin.io/
+    info="Sketch : UI designer"
+    url="https://zeplin.io/"
     caskInstall zeplin
 }
 
@@ -531,16 +542,16 @@ function install_design() {
 #########################################################
 function install_fun() {
 
-    # Garage Band : music composer
-    # https://www.apple.com/fr/mac/garageband/
+    info="Garage Band : music composer"
+    url="https://www.apple.com/fr/mac/garageband/"
     masInstall GarageBand 682658836
 
-    # Battle.net : Game center
-    # https://www.blizzard.com
+    info="Battle.net : Game center"
+    url="https://www.blizzard.com"
     caskInstall battle-net
 
-    # Steam : Game center
-    # https://store.steampowered.com
+    info="Steam : Game center"
+    url="https://store.steampowered.com"
     caskInstall steam
 }
 
