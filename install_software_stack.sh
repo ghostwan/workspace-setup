@@ -192,6 +192,10 @@ function install_base() {
     # jq: command-line JSON processor
     # https://stedolan.github.io/jq/
     brewInstall jq
+
+    # Password manager
+    # https://bitwarden.com/
+    caskInstall bitwarden
 }
 #########################################################
 ################## TERMINAL TOOLING ##################
@@ -409,9 +413,6 @@ function install_productivity() {
     # https://macdown.uranusjr.com/
     caskInstall macdown
 
-    # Password manager
-    # https://bitwarden.com/
-    caskInstall bitwarden
 }
 
 #########################################################
