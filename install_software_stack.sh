@@ -570,9 +570,12 @@ display_usage() {
   echo
   echo " -f             Force app installation"
   echo " -x             Add fun package"
-  echo " -p <package>   Installation of a specific package "
-  echo " -c <category>  Choose which category to install (default is all) among :"
-  echo "base terminal genericDev androidDev pythonDev ci hacking web productivity communication os multimedia design fun"
+  echo " -p <package>   Installation of a specific package with brewInstall / caskInstall / masInstall / pipInstall "
+  echo "                => example:  ${0##*/} -p caskInstall spotify"
+  echo ""
+  echo " -c <category>  Choose which category to install (default is all) among : base terminal genericDev androidDev pythonDev ci 
+                                                                          hacking web productivity communication os multimedia design fun"
+  echo "                => example:  ${0##*/} -c multimedia"
   echo
 }
 
@@ -606,6 +609,7 @@ if [ -n "$category" ]; then
     install_packageManager
     install_$category
 elif [ $package -eq 0 ]; then
+    install_packageManager
     $remaining_args
 else
     install_packageManager
