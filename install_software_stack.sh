@@ -461,6 +461,10 @@ function install_communication() {
     info="Tunnel Blick : VPN"
     url="https://tunnelblick.net/"
     caskInstall tunnelblick
+
+    info="Discord: Gamer chat"
+    url="https://discordapp.com/"
+    caskInstall discord
 }
 
 #########################################################
