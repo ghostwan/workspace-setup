@@ -116,10 +116,12 @@ gws update
 # Finalize my workspace installation by configuring my apps as zsh, alfred, iterm ...
 # Import paid app licence and create symlink
 
-if ask_yes_or_No "Do you want to configure the software ?"
+if ask_yes_or_No "Do you want to restore apps configuration ?"
 then
     # I cloned a repo named configs where I put all my app configs
     config_directory=$(pwd)"/configs"
+
+    println "---- ZSH CONFIGURATION ----"
 
     println "install oh my zsh"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -131,4 +133,9 @@ then
     println "Add plugin for oh-my-zsh"
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+
+    println "---- APPS CONFIGURATION ----"
+    println "Restore apps configuration using mackup..."
+    ln -s $config_directory/mackup.cfg $HOME/.mackup.cfg
+    mackup retore
 fi
