@@ -206,6 +206,10 @@ function install_base() {
     url="https://github.com/StreakyCobra/gws"
     brewInstall gws
 
+    info="Application settings backup"
+    url="https://github.com/lra/mackup"
+    brewInstall mackup 
+
     info="Put files (and directories) in trash"
     url="https://github.com/PhrozenByte/rmtrash"
     brewInstall rmtrash
