@@ -7,6 +7,10 @@ function println() {
     printf "\033[0;33m $1 \033[0m\n"
 }
 
+function printError() {
+    printf "\033[0;31m $1 \033[0m\n"
+}
+
 function ask_yes_or_No() { # The Captial letter is the default one
     read -p "$1 ([y]es or [N]o): "
     case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
@@ -120,6 +124,11 @@ if ask_yes_or_No "Do you want to restore apps configuration ?"
 then
     # I cloned a repo named configs where I put all my app configs
     config_directory=$(pwd)"/configs"
+    cd $config_directory
+    
+    println "Wich config branch do you want to use?"
+    getWorkingBranch
+    git checkout $RESULT
 
     println "---- ZSH CONFIGURATION ----"
 
@@ -135,7 +144,12 @@ then
     git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 
     println "---- APPS CONFIGURATION ----"
-    println "Restore apps configuration using mackup..."
-    ln -s $config_directory/mackup.cfg $HOME/.mackup.cfg
-    mackup retore
+    FILE=$config_directory/mackup.cfg
+    if [ -f "$FILE" ]; then
+        println "Restore apps configuration using mackup..."
+        ln -s $config_directory/mackup.cfg $HOME/.mackup.cfg
+        mackup retore
+    else
+        printError "No mackup configuration found"
+    fi
 fi
