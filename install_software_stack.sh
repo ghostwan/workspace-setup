@@ -490,10 +490,6 @@ function install_os() {
 #########################################################
 function install_multimedia() {
 
-    info="MPlayerX : video player"
-    url="http://mplayerx.org"
-    caskInstall mplayerx
-
     info="VLC : video player"
     url="https://www.videolan.org/vlc/index.fr.html"
     caskInstall vlc
