@@ -12,10 +12,22 @@ function printError() {
 }
 
 function ask_yes_or_No() { # The Captial letter is the default one
-    read -p "$1 ([y]es or [N]o): "
+    printf "\033[0;33m $1 \033[0m"
+    printf "(\033[0;91m[N]o\033[0m"
+    read -p " or [y]es): "
     case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
         y|yes) return 0 ;;
         *)     return 1 ;;
+    esac
+}
+
+function ask_no_or_Yes() { # The Captial letter is the default one
+    printf "\033[0;33m $1 \033[0m"
+    printf "(\033[0;92m[Y]es\033[0m"
+    read -p " or [n]o): "
+    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
+        n|no) return 1 ;;
+        *)    return 0 ;;
     esac
 }
 
@@ -97,25 +109,44 @@ else
     curl https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh | bash -s -- -f -c base
 fi
 
-# For testing purpose
-read -p "Where do you want to clone the workspace ? (current directory): "
-path=$REPLY
-if [ -n "$path" ]; then
-    println "Going to $path"
-    eval cd $path
+if ask_no_or_Yes "Do you want to clone the workspace ?"
+then
+    read -p "Where do you want to clone the workspace ? (current directory): "
+    path=$REPLY
+    if [ -n "$path" ]; then
+        println "Going to $path"
+        eval cd $path
+    fi
+
+    println "Cloning workspace..."
+    # Replace this repo by your own private workspace, this is my private gws config
+    # This repo has a file .projects.gws that describe workspace tree
+    # Each branch is a different configuration, master is the core one then I have: personal, work, doc
+    # To know more about gws: https://github.com/StreakyCobra/gws 
+    git clone git@github.com:ghostwan/workspace.git
+    cd workspace
+    rm -f .cache.gws*
+    getWorkingBranch
+    git checkout $RESULT
+    gws update
+else
+    function goToWorkspace(){
+        read -p "Where is your workspace ? (current directory): "
+        workspace_directory=$REPLY
+        FILE=$workspace_directory/.projects.gws
+        if [ ! -f $FILE ]; then
+            printError "can't find workspace configuration! (.projects.gws)"
+            goToWorkspace
+        else 
+            cd $workspace_directory
+        fi
+    }
+
+    goToWorkspace
+    
 fi
 
-println "Cloning workspace..."
-# Replace this repo by your own private workspace, this is my private gws config
-# This repo has a file .projects.gws that describe workspace tree
-# Each branch is a different configuration, master is the core one then I have: personal, work, doc
-# To know more about gws: https://github.com/StreakyCobra/gws 
-git clone git@github.com:ghostwan/workspace.git
-cd workspace
-rm -f .cache.gws*
-getWorkingBranch
-git checkout $RESULT
-gws update
+
 # Replace this part by your configuration
 # Finalize my workspace installation by configuring my apps as zsh, alfred, iterm ...
 # Import paid app licence and create symlink
