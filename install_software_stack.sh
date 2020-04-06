@@ -466,6 +466,11 @@ function install_communication() {
     url="https://tunnelblick.net/"
     caskInstall tunnelblick
 
+    info="MullvadVPN : VPN"
+    url="http://mullvad.net/"
+    caskInstall mullvadvpn
+
+
     info="Discord: Gamer chat"
     url="https://discordapp.com/"
     caskInstall discord
