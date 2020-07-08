@@ -439,6 +439,9 @@ function install_productivity() {
     url="https://macdown.uranusjr.com/"
     caskInstall macdown
 
+    info="Teams : company instant messenger"
+    url="https://www.microsoft.com/fr-fr/microsoft-365/microsoft-teams"
+    caskInstall microsoft-teams
 }
 
 #########################################################
@@ -469,7 +472,6 @@ function install_communication() {
     info="MullvadVPN : VPN"
     url="http://mullvad.net/"
     caskInstall mullvadvpn
-
 
     info="Discord: Gamer chat"
     url="https://discordapp.com/"
@@ -534,6 +536,10 @@ function install_multimedia() {
     info="Quik: Go Pro"
     url="https://community.gopro.com/t5/fr/Logiciel-h-233-rit-233-GoPro/ta-p/603523?profile.language=fr"
     caskInstall quik
+    
+    info="Powerful sound controler for mac"
+    url="https://staticz.com/soundcontrol/"
+    caskInstall sound-control
 }
 
 #########################################################
@@ -548,6 +554,10 @@ function install_design() {
     info="Sketch : UI designer"
     url="https://zeplin.io/"
     caskInstall zeplin
+
+    info="Protopie : prototyping"
+    url="https://www.protopie.io/"
+    caskInstall protopie
 }
 
 #########################################################
