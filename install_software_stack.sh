@@ -530,6 +530,10 @@ function install_multimedia() {
     info="popcorntime : Watch movie and tv shows"
     url="https://popcorntime.app/fr/"
     manualInstall PopcornTime https://popcorntime.app/fr/
+
+    info="Quik: Go Pro"
+    url="https://community.gopro.com/t5/fr/Logiciel-h-233-rit-233-GoPro/ta-p/603523?profile.language=fr"
+    caskInstall quik
 }
 
 #########################################################
