@@ -168,6 +168,10 @@ function install_app() {
             checkCommandCask $NAME
             installBy 'brew cask' $NAME $?
             ;;
+        gem)
+            checkCommand $NAME
+            installBy gem $NAME $?
+            ;;
         manual)
             printf "\033[0;33m $NAME \033[0m ===> \033[0;35m Go to \033[0;34m $LINK\033[0;35m and download the app \033[0m \n"
             ;;
