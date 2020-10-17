@@ -17,6 +17,7 @@ terminal,brew,sshpass,Noninteractive ssh password provider,https://linux.die.net
 terminal,brew,unrar,Unarchiver for rar tool,https://www.wikiwand.com/fr/WinRAR
 terminal,brew,hub,Tools to esase the use of github,https://github.com/github/hub
 terminal,brew-name,lab zaquestion/tap/lab,Tools to esase the use of gitlab,https://github.com/zaquestion/lab
+terminal,gem,mdless,Formatted and highlighted view of Markdown files in Terminal,https://github.com/ttscoff/mdless
 development,cask,adoptopenjdk,Last java / jdk version,https://adoptopenjdk.net/
 development,cask,visual-studio-code,Powerful code editor,https://gist.github.com/ghostwan/fdf88470e77989592e6651c195bdb8ff
 development,cask,intellij-idea-ce,The most porweful IDE,https://www.jetbrains.com/idea/
