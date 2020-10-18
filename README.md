@@ -1,6 +1,6 @@
 # Workspace setup
 
-The install_stack script is installing all the tools and apps that I need for my workspace. 
+The stack.sh script is installing all the tools and apps that I need for my workspace. 
 It's currently handling Mac OS X platform. 
 
 This script is self contained (doesn't need any other script) and bootstrap itself (install all needed tools for it to work), the only things needed are a shell and curl.
@@ -22,7 +22,7 @@ Get the stack
 > curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/stack.csv -o stack.csv
 
 Start stack installation
-> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/scripts/install_stack.sh)"
+> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/scripts/stack.sh)"
 
 Or you can start a complete install and configure the workspace by doing:
 
