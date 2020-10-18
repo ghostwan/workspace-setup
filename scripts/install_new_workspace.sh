@@ -102,11 +102,13 @@ then
     openLink https://github.com/settings/ssh/new
 fi
 
+REPO_URL=https://raw.githubusercontent.com/ghostwan/workspace-setup/master/scripts/install_stack.sh
+curl -fsSL $REPO_URL/stack.csv -o stack.csv
 if ask_yes_or_No "Do you want to install the full stack ?"
 then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh)"    
+    sh -c "$(curl -fsSL $REPO_URL/scripts/install_stack.sh)"    
 else
-    curl https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh | bash -s -- -f -c base
+    curl $URL/scripts/install_stack.sh | bash -s -- -c base
 fi
 
 if ask_no_or_Yes "Do you want to clone the workspace ?"

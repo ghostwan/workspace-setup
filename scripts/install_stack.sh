@@ -5,6 +5,13 @@
 
 force_installation=1
 export HOMEBREW_CASK_OPTS="--no-quarantine"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# Find stack file either on current or upper folder
+STACK_CSV=$SCRIPT_DIR/stack.csv
+if [ ! -f "$STACK_CSV" ] ; then
+    STACK_CSV=$SCRIPT_DIR/../stack.csv
+    if [ ! -f "$STACK_CSV" ]; then printf "\033[0;31m Can't find stack.csv \033[0m\n"; exit 1; fi
+fi
 
 #########################################################
 ################## INSTALL UTILITY ##################
@@ -23,6 +30,7 @@ function printNotInstall() {
 
 function printDoesNotExist() {
     printf "\033[0;31mDOESN'T EXIST\033[0m\n"
+    printInfo
 }
 
 function printInstallingBy() {
@@ -60,6 +68,12 @@ function ask_yes_or_No() { # The Captial letter is the default one
         y|yes) return 0 ;;
         *)     return 1 ;;
     esac
+}
+
+function continue_or_quit() {
+  printf "\033[0;100m !! Tap enter to continue or q to quit ... \033[0m"
+  read -p "  " REPLY </dev/tty
+  if [ "$REPLY" = "q" ]; then exit 0; fi
 }
 
 function ask_open() { # The Captial letter is the default one
@@ -215,7 +229,7 @@ function install_stack() {
 
     if [ $# -eq 1 ]; then
         println "installing stack for category $1"
-        exec < stack.csv || exit 1
+        exec < $STACK_CSV || exit 1
         read header # read (and ignore) the first line
         while IFS=, read CAT TYPE NAME DESC LINK; do
             if [ $# -eq 1 ] && [ $CAT = $1 ]; then
@@ -225,7 +239,7 @@ function install_stack() {
         IFS=' '
     else
         println "installing all categories"
-        exec < stack.csv || exit 1
+        exec < $STACK_CSV || exit 1
         read header # read (and ignore) the first line
         while IFS=, read CAT TYPE NAME DESC LINK; do
             install_app "${NAME}" "${TYPE}" "${DESC}" "${LINK}"
@@ -243,7 +257,7 @@ function checkPackageExist() {
             return brew cask info $2 >/dev/null 2>&1 ; echo $?
             ;;
         pip)
-            return pip3 search $2 >/dev/null 2>&1; echo $?
+            return pip3 search $2 >/dev/null 2>&1 | grep $2; echo $?
             ;;
         mas)
             return mas search $2 >/dev/null 2>&1; echo $?
@@ -255,8 +269,8 @@ function checkPackageExist() {
             TYPE=""
             if [ $(brew info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="brew";
             elif [ $(brew cask info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="cask";
-            elif [ $(pip3 search $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="pip"; 
-            elif [ $(mas search $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="mas"; 
+            elif [ $(pip3 search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="pip"; 
+            elif [ $(mas search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="mas"; 
             fi
             if [ -z $TYPE ]; then
                 TYPE="any"
@@ -274,7 +288,7 @@ function checkPackageExist() {
 }
 
 function list_all_categories() {
-    exec < stack.csv || exit 1
+    exec < $STACK_CSV || exit 1
     read header # read (and ignore) the first line
     while IFS=, read CAT YPE NAME DESC LINK; do
         echo $CAT
@@ -282,11 +296,30 @@ function list_all_categories() {
     IFS=' '
 }
 
+function search_package() {
+    package=$1
+    println "Searching on brew/cask..."
+    brew search "$package"
+    continue_or_quit
+    println "Searching on mas..."
+    mas search "$package"
+    continue_or_quit
+    println "Searching on pip..."
+    pip3 search "$package"
+    continue_or_quit
+    println "Searching on gem..."
+    gem search "$package"
+    continue_or_quit
+    println "Searching on npm..."
+    npm search "$package"
+    continue_or_quit
+}
+
 function install_package() {
     package=$1
 
     println "installing package $package"
-    exec < stack.csv || exit 1
+    exec < $STACK_CSV || exit 1
     read header # read (and ignore) the first line
     while IFS=, read CAT TYPE NAME DESC LINK; do
         if [ $# -eq 1 ] && [ "$NAME" = "$package" ]; then
@@ -304,15 +337,26 @@ function install_package() {
         if [ -z $TYPE ]; then TYPE="dunno"; fi
         if checkPackageExist $TYPE $NAME
         then
+            if [ $TYPE = "mas" ]
+            then 
+                ask_open "What is the name of this app ?"
+                NAME="$REPLY $NAME"
+            fi
             ask_open "In what category do you want to put it ? ( $(list_all_categories)) "
             CAT=$REPLY
+            if [ -z "$CAT" ]; then CAT="wip"; fi
             ask_open "Give a brief description of this tool: "
             DESC=$REPLY
             ask_open "Give this tools website link for more info: "
             LINK=$REPLY
             newLine="$CAT,$TYPE,$NAME,$DESC,$LINK"
-            echo $newLine >> stack.csv
-            install_package $NAME
+            echo $newLine >> $STACK_CSV
+            install_package "$NAME"
+            if ask_yes_or_No "Do you want to commit the add of "$NAME" and push ?"
+            then
+                git commit -am "Add $NAME: $DESC"
+                # git push -u origin HEAD
+            fi
         else
             printError "$package does not exist on $TYPE repository!"
         fi
@@ -336,8 +380,9 @@ display_usage() {
   echo " -h             Display usage instructions"
   echo
   echo " -f             Force app installation"
-  echo " -p <package>   Installation of a specific package by its name"
+  echo " -p <package>   Installation of a specific package by its name (or mas id)"
   echo "                => example:  ${0##*/} -p spotify"
+  echo " -s <app>       Search for a specific package by its name"
   echo ""
   printf " -c <category>  Choose which category to install (default is all) among : $(list_all_categories)"
   echo
@@ -346,8 +391,7 @@ display_usage() {
   
 }
 
-
-while getopts "h?vfc:p:" opt; do
+while getopts "h?vfc:p:s:" opt; do
     case "$opt" in
     h | \?)
         display_usage
@@ -362,8 +406,17 @@ while getopts "h?vfc:p:" opt; do
     p)
         package=$OPTARG
         ;;
+    s)
+        search=$OPTARG
+        ;;
     esac
 done
+
+if [ -n "$search" ]
+then
+    search_package $search
+    exit 0
+fi
 
 install_packageManager
 if [ -n "$package" ]; then

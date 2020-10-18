@@ -1,6 +1,6 @@
 # Workspace setup
 
-The install_software_stack script is installing all the tools and apps that I need for my workspace. 
+The install_stack script is installing all the tools and apps that I need for my workspace. 
 It's currently handling Mac OS X platform. 
 
 This script is self contained (doesn't need any other script) and bootstrap itself (install all needed tools for it to work), the only things needed are a shell and curl.
@@ -18,14 +18,22 @@ The install_new_workspace script is initializing a brand new workspace, install 
 
 You can simply install the stack by doing:
 
-> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_software_stack.sh)"
+Get the stack
+> curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/stack.csv -o stack.csv
 
-Or you can complete install and configure the workspace by doing:
+Start stack installation
+> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/scripts/install_stack.sh)"
 
-> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/install_new_workspace.sh)"
+Or you can start a complete install and configure the workspace by doing:
+
+> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ghostwan/workspace-setup/master/scripts/install_new_workspace.sh)"
 
 **WARNING THIS WILL CONFIGURE MY WORKSPACE, EDIT THE SCRIPT FOR YOUR OWN CONFIGURATION** 
 
 If there is an SSL issue, deactivate SSL verification:
 > git config --global http.sslVerify false
 
+# To do next
+
+- Add support of npm
+- Add workspace reconfiguration from configs folder
