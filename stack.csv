@@ -1,0 +1,81 @@
+category,type,name,description,link
+base,cask,iterm2,Powerful terminal,https://www.iterm2.com/
+base,brew,zsh,Powerful unix shell,https://doc.ubuntu-fr.org/zsh
+base,brew,git,Version control system,https://git-scm.com/
+base,brew,git-gui,GUI to commit,https://git-scm.com/
+base,brew,gws,Agit workspace manager,https://github.com/StreakyCobra/gws
+base,brew,mackup,Put files (and directories) in trash,https://github.com/lra/mackup
+base,brew,rmtrash,Put files (and directories) in trash,https://github.com/PhrozenByte/rmtrash
+base,brew,jq,Command-line JSON processor,https://stedolan.github.io/jq/
+base,cask,bitwarden,Password manager,https://bitwarden.com/
+terminal,brew,autojump,A faster way to navigate in the filesystem,https://github.com/wting/autojump
+terminal,brew,wget,Retrieves content from web servers,https://www.wikiwand.com/fr/GNU_Wget
+terminal,brew,htop,An interactive process viewer for Unix systems,https://hisham.hm/htop/
+terminal,brew,tree,List directories tree,https://www.geeksforgeeks.org/tree-command-unixlinux/
+terminal,brew,ssh-copy-id,Use locally available keys to authorise logins on a remote machine,https://www.ssh.com/ssh/copy-id
+terminal,brew,sshpass,Noninteractive ssh password provider,https://linux.die.net/man/1/sshpass
+terminal,brew,unrar,Unarchiver for rar tool,https://www.wikiwand.com/fr/WinRAR
+terminal,brew,hub,Tools to esase the use of github,https://github.com/github/hub
+terminal,brew-name,lab zaquestion/tap/lab,Tools to esase the use of gitlab,https://github.com/zaquestion/lab
+terminal,gem,mdless,Formatted and highlighted view of Markdown files in Terminal,https://github.com/ttscoff/mdless
+development,cask,adoptopenjdk,Last java / jdk version,https://adoptopenjdk.net/
+development,cask,visual-studio-code,Powerful code editor,https://gist.github.com/ghostwan/fdf88470e77989592e6651c195bdb8ff
+development,cask,intellij-idea-ce,The most porweful IDE,https://www.jetbrains.com/idea/
+development,cask,diffmerge,Visually compare and merge files,https://sourcegear.com/diffmerge/
+development,cask,db-browser-for-sqlite,SQLite Browser : browser for sql database,https://sqlitebrowser.org/
+development,cask,cacher,Cacher: Snippet manager,https://www.cacher.io/
+android,cask,android-studio,IDE for Android,https://developer.android.com/studio
+android,brew,apktool,A tool for reverse engineering Android apps,https://ibotpeaches.github.io/Apktool/
+android,brew,pidcat,Colored logcat script for a specific application package,https://github.com/JakeWharton/pidcat
+android,brew,dex2jar,Tools to work with android .dex and java .class files,https://sourceforge.net/p/dex2jar/wiki/UserGuide/
+android,brew,cfr-decompiler,Java decompiler,https://www.benf.org/other/cfr
+android,cask,jd-gui,Java decompiler,http://java-decompiler.github.io
+android,cask,handshaker,Android file transfer,https://www.smartisan.com
+android,cask,vysor,Remote disaply for android,https://www.vysor.io
+android,cask,keystore-explorer,Keystore management,http://keystore-explorer.org
+android,brew,scrcpy,Export remoote for android device,https://github.com/Genymobile/scrcpy
+python,cask,anaconda,Machine learning environement,https://www.anaconda.com/distribution
+ci,cask,docker,Container engine,https://www.docker.com
+ci,brew,kubernetes-cli,Container orchestration,https://kubernetes.io
+ci,cask,minikube,Container orchestration,https://kubernetes.io
+hacking,cask,wireshark,Network analyzer,https://www.wireshark.org
+hacking,brew,mitmproxy,Man in the middle,https://mitmproxy.org
+hacking,cask,burp-suite,Pen test,https://portswigger.net/burp
+web,cask,insomnia,Rest client,https://insomnia.rest
+web,cask,google-chrome,Web Browser,https://www.google.com/chrome
+web,cask,transmit,FTP Client,https://panic.com/transmit
+web,cask,tor-browser,Anonymous browser,https://www.torproject.org
+productivity,cask,alfred,Poweful spotlight,https://www.alfredapp.com
+productivity,cask,dash,API documentation browser,https://kapeli.com/dash
+productivity,cask,dropbox,Online storage,https://www.dropbox.com
+productivity,cask,notion,Evernote on steroid,https://www.notion.so
+productivity,cask,bettertouchtool,Powerful shortcuts customisation,https://folivora.ai
+productivity,mas,BetterSnapTool 417375580,Manage your window positions and sizes,https://folivora.ai/bettersnaptool
+productivity,cask,macdown,Markdown editor,https://macdown.uranusjr.com
+productivity,cask,microsoft-teams,Company instant messenger,https://www.microsoft.com/fr-fr/microsoft-365/microsoft-teams
+communication,cask,skype,Visioconference,https://www.skype.com
+communication,cask,slack,A collaboration hub for work,https://slack.com
+communication,cask,teamviewer,Remote control,https://www.teamviewer.com
+communication,manual,Shift,Account manager,https://tryshift.com
+communication,cask,tunnelblick,Work VPN,https://tunnelblick.net
+communication,cask,mullvadvpn,Personal VPN,http://mullvad.net
+communication,cask,discord,Game chat,https://discordapp.com
+os,cask,daisydisk,Disk analyser,https://daisydiskapp.com
+os,cask,the-unarchiver,Multi zip unarchiver,https://theunarchiver.com
+multimedia,cask,vlc,Video Player,https://www.videolan.org/vlc/index.fr.html
+multimedia,cask,subsmarine,Subtitles downloader,https://cocoawithchurros.com/subsmarine.php
+multimedia,cask,transmission,Torrent,https://transmissionbt.com
+multimedia,cask,spotify,Music streaming,https://www.spotify.com
+multimedia,cask,whatsapp,Instant messaging,https://www.whatsapp.com
+multimedia,cask,molotov,TV and replay,https://www.molotov.tv
+multimedia,brew,youtube-dl,Youtube downloader,https://ytdl-org.github.io/youtube-dl/index.html
+multimedia,brew,ffmepg,Record tool,https://ffmpeg.org/
+multimedia,manual,PopcornTime,Watch movie and tv shows,https://popcorntime.app/fr/
+multimedia,cask,quik,Go Pro,https://community.gopro.com/t5/fr/Logiciel-h-233-rit-233-GoPro/ta-p/603523
+multimedia,cask,sound-control,Powerful sound controler for mac,https://staticz.com/soundcontrol/
+design,cask,sketch,Proto designer,https://www.sketch.com/
+design,cask,zeplin,UI designer,https://zeplin.io/
+design,cask,protopie,App Prototyping,https://www.protopie.io/
+fun,mas,GarageBand 682658836,Music composer,https://www.apple.com/fr/mac/garageband/
+fun,cask,battle-net,Game center,https://www.blizzard.com
+fun,cask,steam,Game center,https://store.steampowered.com
