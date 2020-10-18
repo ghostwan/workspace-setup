@@ -250,21 +250,11 @@ function install_stack() {
 
 function checkPackageExist() {
     case $1 in
-        brew|brew-name)
-            return brew info $2 >/dev/null 2>&1; echo $?
-            ;;
-        cask)
-            return brew cask info $2 >/dev/null 2>&1 ; echo $?
-            ;;
-        pip)
-            return pip3 search $2 >/dev/null 2>&1 | grep $2; echo $?
-            ;;
-        mas)
-            return mas search $2 >/dev/null 2>&1; echo $?
-            ;;
-        gem|manual)
-            return 0
-            ;;
+        brew|brew-name) return $(brew info $2 >/dev/null 2>&1) ;;
+        cask) return $(brew cask info $2 >/dev/null 2>&1) ;;
+        pip) return $(pip3 search $2 >/dev/null 2>&1 | grep $2) ;;
+        mas) return $(mas search $2 >/dev/null 2>&1) ;;
+        gem|manual) return 0 ;;
         dunno)
             TYPE=""
             if [ $(brew info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="brew";
@@ -280,9 +270,7 @@ function checkPackageExist() {
                 return 0
             fi
             ;;
-        *) 
-            printError "Command $TYPE does not exist"
-            ;;
+        *) printError "Command $TYPE does not exist" ;;
     esac
     return 1
 }
@@ -333,7 +321,6 @@ function install_package() {
         NAME=$package
         ask_open "What package type is it (brew, cask, brew-name, manual, pip, gem ) or leave blanck for detection  ?"
         TYPE=$REPLY
-        echo $TYPE
         if [ -z $TYPE ]; then TYPE="dunno"; fi
         if checkPackageExist $TYPE $NAME
         then
@@ -351,12 +338,12 @@ function install_package() {
             LINK=$REPLY
             newLine="$CAT,$TYPE,$NAME,$DESC,$LINK"
             echo $newLine >> $STACK_CSV
-            install_package "$NAME"
             if ask_yes_or_No "Do you want to commit the add of "$NAME" and push ?"
             then
-                git commit -am "Add $NAME: $DESC"
-                # git push -u origin HEAD
+                git -C $SCRIPT_DIR commit -am "Add $NAME: $DESC"
+                git -C  $SCRIPT_DIR push -u origin HEAD
             fi
+            install_package "$NAME"
         else
             printError "$package does not exist on $TYPE repository!"
         fi
