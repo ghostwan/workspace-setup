@@ -42,6 +42,31 @@ function printError() {
     printf "\033[0;31m $1 \033[0m\n"
 }
 
+function ask_no_or_Yes() { # The Captial letter is the default one
+    printf "\033[0;33m $1 \033[0m"
+    printf "(\033[0;92m[Y]es\033[0m"
+    read -p " or [n]o): " REPLY </dev/tty
+    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
+        n|no) return 1 ;;
+        *)    return 0 ;;
+    esac
+}
+
+function ask_yes_or_No() { # The Captial letter is the default one
+    printf "\033[0;33m $1 \033[0m"
+    printf "(\033[0;91m[N]o\033[0m"
+    read -p " or [y]es): " REPLY </dev/tty
+    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
+        y|yes) return 0 ;;
+        *)     return 1 ;;
+    esac
+}
+
+function ask_open() { # The Captial letter is the default one
+    printf "\033[0;33m $1 \033[0m"
+    read -p " " REPLY </dev/tty
+}
+
 function checkCommand() {
     printIsExits $1
     command -v $1 >/dev/null 2>&1
@@ -55,6 +80,10 @@ function checkCommandMas() {
     if [ -d "$resultroot" ] || [ -d "$resulthome" ]; then
         return 0
     else
+        result="$(mas search $1 | grep 'No results found')"
+        if [ -n "$result" ]; then
+            return 2
+        fi
         return 1
     fi
 }
@@ -66,9 +95,9 @@ function checkCommandCask() {
         return 2
     else
         result="$(brew cask info $1 | grep 'Not installed')"
-    fi
-    if [ -n "$result" ]; then
-        return 1
+        if [ -n "$result" ]; then
+            return 1
+        fi
     fi
     return 0;
 }
@@ -205,6 +234,54 @@ function install_stack() {
     fi
 }
 
+function checkPackageExist() {
+    case $1 in
+        brew|brew-name)
+            return brew info $2 >/dev/null 2>&1; echo $?
+            ;;
+        cask)
+            return brew cask info $2 >/dev/null 2>&1 ; echo $?
+            ;;
+        pip)
+            return pip3 search $2 >/dev/null 2>&1; echo $?
+            ;;
+        mas)
+            return mas search $2 >/dev/null 2>&1; echo $?
+            ;;
+        gem|manual)
+            return 0
+            ;;
+        dunno)
+            TYPE=""
+            if [ $(brew info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="brew";
+            elif [ $(brew cask info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="cask";
+            elif [ $(pip3 search $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="pip"; 
+            elif [ $(mas search $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="mas"; 
+            fi
+            if [ -z $TYPE ]; then
+                TYPE="any"
+                return 1
+            else 
+                echo "found in $TYPE"
+                return 0
+            fi
+            ;;
+        *) 
+            printError "Command $TYPE does not exist"
+            ;;
+    esac
+    return 1
+}
+
+function list_all_categories() {
+    exec < stack.csv || exit 1
+    read header # read (and ignore) the first line
+    while IFS=, read CAT YPE NAME DESC LINK; do
+        echo $CAT
+    done | sort -u | tr '\n' ' '
+    IFS=' '
+}
+
 function install_package() {
     package=$1
 
@@ -217,18 +294,34 @@ function install_package() {
             exit 0
         fi
     done
-    printError "$package does not exist!"
+    printError "$package does not exist in the stack!"
+    if ask_yes_or_No "Do you want to add in the stack and install $package ?"
+    then
+        NAME=$package
+        ask_open "What package type is it (brew, cask, brew-name, manual, pip, gem ) or leave blanck for detection  ?"
+        TYPE=$REPLY
+        echo $TYPE
+        if [ -z $TYPE ]; then TYPE="dunno"; fi
+        if checkPackageExist $TYPE $NAME
+        then
+            ask_open "In what category do you want to put it ? ( $(list_all_categories)) "
+            CAT=$REPLY
+            ask_open "Give a brief description of this tool: "
+            DESC=$REPLY
+            ask_open "Give this tools website link for more info: "
+            LINK=$REPLY
+            newLine="$CAT,$TYPE,$NAME,$DESC,$LINK"
+            echo $newLine >> stack.csv
+            install_package $NAME
+        else
+            printError "$package does not exist on $TYPE repository!"
+        fi
+    fi
+        
     IFS=' '
 }
 
-function list_all_categories() {
-    exec < stack.csv || exit 1
-    read header # read (and ignore) the first line
-    while IFS=, read CAT YPE NAME DESC LINK; do
-        echo $CAT
-    done | sort -u | tr '\n' ' '
-    IFS=' '
-}
+
 
 # # A POSIX variable
 OPTIND=1 # Reset in case getopts has been used previously in the shell.
@@ -243,10 +336,10 @@ display_usage() {
   echo " -h             Display usage instructions"
   echo
   echo " -f             Force app installation"
-  echo " -p <package>   Installation of a specific package "
-  echo "                => example:  ${0##*/} -p caskInstall spotify"
+  echo " -p <package>   Installation of a specific package by its name"
+  echo "                => example:  ${0##*/} -p spotify"
   echo ""
-  printf " -c <category>  Choose which category to install (default is all) among : " & list_all_categories 
+  printf " -c <category>  Choose which category to install (default is all) among : $(list_all_categories)"
   echo
   echo "                => example:  ${0##*/} -c multimedia"
   echo
