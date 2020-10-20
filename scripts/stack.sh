@@ -226,11 +226,10 @@ function install_app() {
 
 
 function install_stack() {
-
+    install_packageManager
     if [ $# -eq 1 ]; then
         println "installing stack for category $1"
-        exec < $STACK_CSV || exit 1
-        read header # read (and ignore) the first line
+        readStack
         while IFS=, read CAT TYPE NAME DESC LINK; do
             if [ $# -eq 1 ] && [ $CAT = $1 ]; then
                 install_app "${NAME}" "${TYPE}" "${DESC}" "${LINK}"
@@ -239,8 +238,7 @@ function install_stack() {
         IFS=' '
     else
         println "installing all categories"
-        exec < $STACK_CSV || exit 1
-        read header # read (and ignore) the first line
+        readStack
         while IFS=, read CAT TYPE NAME DESC LINK; do
             install_app "${NAME}" "${TYPE}" "${DESC}" "${LINK}"
         done
@@ -249,40 +247,89 @@ function install_stack() {
 }
 
 function checkPackageExist() {
-    case $1 in
-        brew|brew-name) return $(brew info $2 >/dev/null 2>&1) ;;
-        cask) return $(brew cask info $2 >/dev/null 2>&1) ;;
-        pip) return $(pip3 search $2 >/dev/null 2>&1 | grep $2) ;;
-        mas) return $(mas search $2 >/dev/null 2>&1) ;;
-        gem|manual) return 0 ;;
-        dunno)
-            TYPE=""
-            if [ $(brew info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="brew";
-            elif [ $(brew cask info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="cask";
-            elif [ $(pip3 search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="pip"; 
-            elif [ $(mas search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then TYPE="mas"; 
-            fi
-            if [ -z $TYPE ]; then
-                TYPE="any"
-                return 1
-            else 
-                echo "found in $TYPE"
+    if [ $1 = "gem"] || [ $1 = "manual"]; then return 0; fi
+
+    temp_type=""
+    if [ $(brew info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="brew";
+    elif [ $(brew cask info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="cask";
+    elif [ $(pip3 search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="pip"; 
+    elif [ $(mas search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="mas"; 
+    fi
+    if [ $1 = "dunno"]
+    then         
+        if [ -z $temp_type ]; then
+            TYPE="any"
+            return 1
+        else 
+            TYPE=$temp_type
+            echo "found in $TYPE"
+            return 0
+        fi
+    else
+        return $1 = temp_type
+    fi
+}
+
+function checkPackageInstall() {
+    TYPE=$1
+    NAME=$2
+    IFS=' ' read -ra arguments <<< "$NAME"
+    IFS=' '
+    case $TYPE in
+        brew|pip|gem) if [ $(command -v $NAME >/dev/null 2>&1; echo $?) -eq 0 ]; then return 0; fi  ;;
+        brew-name) if [ $(command -v ${arguments[0]} >/dev/null 2>&1; echo $?) -eq 0 ]; then return 0; fi ;;
+        cask) if [ $(brew cask info $NAME | grep -e 'Not installed' >/dev/null 2>&1; echo $?) -eq 1 ]; then return 0; fi ;; 
+        *) 
+            result=${arguments[0]}.app
+            resultroot=/Applications/$result
+            resulthome=$HOME/Applications/$result
+            if [ -d "$resultroot" ] || [ -d "$resulthome" ]; then
                 return 0
             fi
             ;;
-        *) printError "Command $TYPE does not exist" ;;
     esac
     return 1
 }
 
-function list_all_categories() {
+function readStack() {
     exec < $STACK_CSV || exit 1
     read header # read (and ignore) the first line
-    while IFS=, read CAT YPE NAME DESC LINK; do
+}
+
+function list_all_categories() {
+    readStack
+    while IFS=, read CAT TYPE NAME DESC LINK; do
         echo $CAT
     done | sort -u | tr '\n' ' '
     IFS=' '
 }
+
+function list_packages_category() {
+    readStack
+    if [ "all" = $1 ]; then
+        while IFS=, read CAT TYPE NAME DESC LINK; do
+            status="NOT INSTALL"
+            if checkPackageInstall $TYPE $NAME
+            then
+                status="INSTALLED"
+            fi
+            printf "$status \033[0;35m ${CAT} \033[0m \033[0;32m ${TYPE} \033[0m \033[0;31m ${NAME} \033[0m \033[0;30m ${DESC} \033[0m \033[0m \033[0;34m ${LINK} \033[0m \n"
+        done
+    else
+        while IFS=, read CAT TYPE NAME DESC LINK; do
+            if [ $CAT = $1 ]; then
+                status="NOT INSTALL"
+                if checkPackageInstall $TYPE $NAME
+                then
+                    status="INSTALLED"
+                fi
+                printf "$status \033[0;32m ${TYPE} \033[0m \033[0;31m ${NAME} \033[0m \033[0;30m ${DESC} \033[0m \033[0m \033[0;34m ${LINK} \033[0m \n"
+            fi
+        done
+    fi
+    IFS=' '
+}
+
 
 function search_package() {
     package=$1
@@ -304,11 +351,12 @@ function search_package() {
 }
 
 function install_package() {
+    install_packageManager
+
     package=$1
 
     println "installing package $package"
-    exec < $STACK_CSV || exit 1
-    read header # read (and ignore) the first line
+    readStack
     while IFS=, read CAT TYPE NAME DESC LINK; do
         if [ $# -eq 1 ] && [ "$NAME" = "$package" ]; then
             install_app "${NAME}" "${TYPE}" "${DESC}" "${LINK}"
@@ -358,27 +406,28 @@ function install_package() {
 OPTIND=1 # Reset in case getopts has been used previously in the shell.
 
 category=""
-package=""
 
 display_usage() {
   echo
-  echo "Usage: ${0##*/} [-h] [-f] [-c <category> | -p <package>]"
-  echo
+  echo "Usage: ${0##*/} [-h] [-f] [-c <category>] [package]"
   echo " -h             Display usage instructions"
   echo
-  echo " -f             Force app installation"
-  echo " -p <package>   Installation of a specific package by its name (or mas id)"
-  echo "                => example:  ${0##*/} -p spotify"
-  echo " -s <app>       Search for a specific package by its name"
-  echo ""
-  printf " -c <category>  Choose which category to install (default is all) among : $(list_all_categories)"
-  echo
+  echo " [package]      Installation of a specific package / app by its name (or mas id). If none all app in the stack are installed"
+  echo 
+  echo " -c <category>  Choose which category to install"
   echo "                => example:  ${0##*/} -c multimedia"
+  echo " -l <category>  List all packages in a category. All to display the whole stack"
+  echo ""
+  printf "Categories:   $(list_all_categories) \n"
+  echo ""
+  echo " -f             Force packages installation (don't ask confiramtion)"
+  echo "                => example:  ${0##*/} -p spotify"
+  echo " -s <package>       Search for a specific package/app by its name"
   echo
   
 }
 
-while getopts "h?vfc:p:s:" opt; do
+while getopts "h?vfc:s:l:" opt; do
     case "$opt" in
     h | \?)
         display_usage
@@ -390,25 +439,29 @@ while getopts "h?vfc:p:s:" opt; do
     c)
         category=$OPTARG
         ;;
-    p)
-        package=$OPTARG
-        ;;
     s)
-        search=$OPTARG
+        search_package $OPTARG
+        exit 0
+        ;;
+    l)
+        list_packages_category $OPTARG
+        exit 0
         ;;
     esac
 done
 
-if [ -n "$search" ]
-then
-    search_package $search
-    exit 0
-fi
-
-install_packageManager
-if [ -n "$package" ]; then
-    install_package $package
-else 
+# If category install category
+if [ -n "$category" ]; then
     install_stack $category
 fi
+
+# If package name passed try to install packages
+shift $(expr $OPTIND - 1 )
+while test $# -gt 0; do
+  install_package $1
+  shift
+done
+
+# else install the whole stack
+install_stack
 
