@@ -247,7 +247,7 @@ function install_stack() {
 }
 
 function checkPackageExist() {
-    if [ $1 = "gem"] || [ $1 = "manual"]; then return 0; fi
+    if [[ "$1" == "gem"  || "$1" == "manual" ]]; then return 0; fi
 
     temp_type=""
     if [ $(brew info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="brew";
@@ -255,7 +255,7 @@ function checkPackageExist() {
     elif [ $(pip3 search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="pip"; 
     elif [ $(mas search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="mas"; 
     fi
-    if [ $1 = "dunno"]
+    if [[ "$1" == "dunno" ]]
     then         
         if [ -z $temp_type ]; then
             TYPE="any"
