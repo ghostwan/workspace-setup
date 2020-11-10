@@ -87,3 +87,4 @@ multimedia,brew,unified-remote,Remotely control the computer from android phone,
 multimedia,brew,aerial,screensaver,https://github.com/JohnCoates/Aerial
 productivity,brew,jitsi,conf call without account,https://meet.jit.si/
 design,brew,imagemagick,image processing tool,none
+tools,brew,monitorcontrol,Control your external monitor brightness,https://github.com/MonitorControl/MonitorControl
