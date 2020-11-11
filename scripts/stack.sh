@@ -73,7 +73,7 @@ function ask_yes_or_No() { # The Captial letter is the default one
 function continue_or_quit() {
   printf "\033[0;100m !! Tap enter to continue or q to quit ... \033[0m"
   read -p "  " REPLY </dev/tty
-  if [ "$REPLY" = "q" ]; then exit 0; fi
+  if [ -z "$REPLY" ]; then return 1; else return 0; fi
 }
 
 function ask_open() { # The Captial letter is the default one
@@ -335,19 +335,19 @@ function search_package() {
     package=$1
     println "Searching on brew/cask..."
     brew search "$package"
-    continue_or_quit
+    if continue_or_quit; then return 1; fi
     println "Searching on mas..."
     mas search "$package"
-    continue_or_quit
+    if continue_or_quit; then return 1; fi
     println "Searching on pip..."
     pip3 search "$package"
-    continue_or_quit
+    if continue_or_quit; then return 1; fi
     println "Searching on gem..."
     gem search "$package"
-    continue_or_quit
+    if continue_or_quit; then return 1; fi
     println "Searching on npm..."
     npm search "$package"
-    continue_or_quit
+    if continue_or_quit; then return 1; fi
 }
 
 function install_package() {
@@ -360,20 +360,22 @@ function install_package() {
     while IFS=, read CAT TYPE NAME DESC LINK; do
         if [ $# -eq 1 ] && [ "$NAME" = "$package" ]; then
             install_app "${NAME}" "${TYPE}" "${DESC}" "${LINK}"
-            exit 0
+            return 1
         fi
     done
     printError "$package does not exist in the stack!"
-    if ask_yes_or_No "Do you want to add in the stack and install $package ?"
-    then
+    if ask_yes_or_No "Do you want to look for the $package (say no if you are sure of the name) ?"; then
+        search_package $package
+        ask_open "What is the name of the package (default is $package)  ?"
+        if [ -n $REPLY ]; then package=$REPLY; fi
+    fi
+    if ask_yes_or_No "Do you want to add in the stack and install $package ?"; then
         NAME=$package
         ask_open "What package type is it (brew, cask, brew-name, manual, pip, gem ) or leave blanck for detection  ?"
         TYPE=$REPLY
         if [ -z $TYPE ]; then TYPE="dunno"; fi
-        if checkPackageExist $TYPE $NAME
-        then
-            if [ $TYPE = "mas" ]
-            then 
+        if checkPackageExist $TYPE $NAME; then
+            if [ $TYPE = "mas" ]; then 
                 ask_open "What is the name of this app ?"
                 NAME="$REPLY $NAME"
             fi
@@ -386,8 +388,7 @@ function install_package() {
             LINK=$REPLY
             newLine="$CAT,$TYPE,$NAME,$DESC,$LINK"
             echo $newLine >> $STACK_CSV
-            if ask_yes_or_No "Do you want to commit the add of "$NAME" and push ?"
-            then
+            if ask_yes_or_No "Do you want to commit the add of "$NAME" and push ?"; then
                 git -C $SCRIPT_DIR commit -am "Add $NAME: $DESC"
                 git -C  $SCRIPT_DIR push -u origin HEAD
             fi
@@ -412,7 +413,7 @@ display_usage() {
   echo "Usage: ${0##*/} [-h] [-f] [-c <category>] [package]"
   echo " -h             Display usage instructions"
   echo
-  echo " [package]      Installation of a specific package / app by its name (or mas id). If none all app in the stack are installed"
+  echo " [package]      Installation of a specific package / app by its name (or mas id)."
   echo 
   echo " -c <category>  Choose which category to install"
   echo "                => example:  ${0##*/} -c multimedia"
@@ -457,11 +458,13 @@ fi
 
 # If package name passed try to install packages
 shift $(expr $OPTIND - 1 )
+fullStack=true
 while test $# -gt 0; do
   install_package $1
   shift
+  fullStack=false
 done
 
 # else install the whole stack
-install_stack
+if $fullStack; then install_stack; fi
 
