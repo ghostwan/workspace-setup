@@ -250,23 +250,19 @@ function checkPackageExist() {
     if [[ "$1" == "gem"  || "$1" == "manual" ]]; then return 0; fi
 
     temp_type=""
-    if [ $(brew info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="brew";
-    elif [ $(brew cask info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="cask";
-    elif [ $(pip3 search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="pip"; 
-    elif [ $(mas search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="mas"; 
+    if  ([ "$1" == "dunno" ] || [ "$1" == "brew" ]) && [ $(brew info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="brew";
+    elif ([ "$1" == "dunno" ] || [ "$1" == "cask" ]) && [ $(brew cask info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="cask";
+    elif ([ "$1" == "dunno" ] || [ "$1" == "pip" ]) && [ $(pip3 search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="pip"; 
+    elif ([ "$1" == "dunno" ] || [ "$1" == "mas" ]) && [ $(mas search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="mas"; 
+    elif ([ "$1" == "dunno" ] || [ "$1" == "npm" ]) && [ $(npm view $2  >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="npm"; 
     fi
-    if [[ "$1" == "dunno" ]]
-    then         
-        if [ -z $temp_type ]; then
-            TYPE="any"
-            return 1
-        else 
-            TYPE=$temp_type
-            echo "found in $TYPE"
-            return 0
-        fi
-    else
-        return $1 = temp_type
+    if [ -z $temp_type ]; then
+        TYPE="any"
+        return 1
+    else 
+        TYPE=$temp_type
+        echo "found in $TYPE"
+        return 0
     fi
 }
 
@@ -369,7 +365,7 @@ function install_package() {
         ask_open "What is the name of the package (default is $package)  ?"
         if [ -n $REPLY ]; then package=$REPLY; fi
     fi
-    if ask_yes_or_No "Do you want to add in the stack and install $package ?"; then
+    if ask_no_or_Yes "Do you want to add in the stack and install $package ?"; then
         NAME=$package
         ask_open "What package type is it (brew, cask, brew-name, manual, pip, gem ) or leave blanck for detection  ?"
         TYPE=$REPLY
