@@ -203,6 +203,10 @@ function install_app() {
             checkCommand $NAME
             installBy pip3 $NAME $?
             ;;
+        npm)
+            checkCommand $NAME
+            installBy pip3 $NAME $?
+            ;;
         mas)
             checkCommandMas ${arguments[0]} ${arguments[1]}
             installBy mas ${arguments[1]} $?
@@ -213,7 +217,7 @@ function install_app() {
             ;;
         gem)
             checkCommand $NAME
-            installBy gem $NAME $?
+            installBy npm $NAME $?
             ;;
         manual)
             printf "\033[0;33m $NAME \033[0m ===> \033[0;35m Go to \033[0;34m $LINK\033[0;35m and download the app \033[0m \n"
