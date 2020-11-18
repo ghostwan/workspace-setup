@@ -350,6 +350,20 @@ function search_package() {
     if continue_or_quit; then return 1; fi
 }
 
+
+function update_all() {
+    println "Updating brew..."
+    brew update
+    println "Updating brew cask..."
+    brew cask upgrade
+    println "Updating mas..."
+    mas upgrade
+    println "Updating npm..."
+    npm update
+    # println "Updating on gem..."
+    # println "Updating on pip..."
+}
+
 function install_package() {
     install_packageManager
 
@@ -424,11 +438,12 @@ display_usage() {
   echo " -f             Force packages installation (don't ask confiramtion)"
   echo "                => example:  ${0##*/} -p spotify"
   echo " -s <package>       Search for a specific package/app by its name"
+  echo " -u                 Update all package"
   echo
   
 }
 
-while getopts "h?vfc:s:l:" opt; do
+while getopts "h?vfuc:s:l:" opt; do
     case "$opt" in
     h | \?)
         display_usage
@@ -436,6 +451,10 @@ while getopts "h?vfc:s:l:" opt; do
         ;;
     f)
         force_installation=0
+        ;;
+    u)
+        update_all
+        exit 0
         ;;
     c)
         category=$OPTARG
