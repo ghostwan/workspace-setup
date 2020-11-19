@@ -90,3 +90,4 @@ design,brew,imagemagick,image processing tool,none
 tools,brew,monitorcontrol,Control your external monitor brightness,https://github.com/MonitorControl/MonitorControl
 development,brew,sourcetree,git client,https://www.sourcetreeapp.com/
 development,npm,firebase,firebase cli,https://firebase.google.com/docs/cli
+web,brew,brave-browser,,
