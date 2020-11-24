@@ -372,9 +372,18 @@ function install_package() {
     println "installing package $package"
     readStack
     while IFS=, read CAT TYPE NAME DESC LINK; do
-        if [ $# -eq 1 ] && [ "$NAME" = "$package" ]; then
-            install_app "${NAME}" "${TYPE}" "${DESC}" "${LINK}"
-            return 1
+        if [ $# -eq 1 ]; then
+            if [ "$TYPE" = "mas" ]; then
+                IFS=' ' read -ra arguments <<< "$NAME"
+                IFS=' '
+                if [ "${arguments[0]}" = "$package" ]; then
+                    install_app "${NAME}" "${TYPE}" "${DESC}" "${LINK}"
+                    return 1
+                fi
+            elif [ "$NAME" = "$package" ]; then
+                install_app "${NAME}" "${TYPE}" "${DESC}" "${LINK}"
+                return 1
+            fi
         fi
     done
     printError "$package does not exist in the stack!"
