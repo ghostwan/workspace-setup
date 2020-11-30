@@ -364,6 +364,12 @@ function update_all() {
     # println "Updating on pip..."
 }
 
+function edit_stack(){
+    code $STACK_CSV
+    continue_or_quit
+    git -C $SCRIPT_DIR gui
+}
+
 function install_package() {
     install_packageManager
 
@@ -452,7 +458,7 @@ display_usage() {
   
 }
 
-while getopts "h?vfuc:s:l:" opt; do
+while getopts "h?vfeuc:s:l:" opt; do
     case "$opt" in
     h | \?)
         display_usage
@@ -476,6 +482,9 @@ while getopts "h?vfuc:s:l:" opt; do
         list_packages_category $OPTARG
         exit 0
         ;;
+    e)
+        edit_stack
+        exit 0
     esac
 done
 
