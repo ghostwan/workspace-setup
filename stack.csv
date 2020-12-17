@@ -92,4 +92,6 @@ development,brew,sourcetree,git client,https://www.sourcetreeapp.com/
 development,npm,firebase,firebase cli,https://firebase.google.com/docs/cli
 web,brew,brave-browser,Internet browser,https://brave.com/fr/
 productivity,brew,openvpn-connect,vpn,https://openvpn.net/download-open-vpn/
-Productivity,mas,bear 1091189122,https://bear.app/android,brew,jadx,reverse engenering android application,https://github.com/skylot/jadx
+productivity,mas,bear 1091189122,Markown editor,https://bear.app/android
+development,brew,jadx,reverse engenering android application,https://github.com/skylot/jadx
+
