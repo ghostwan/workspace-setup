@@ -85,13 +85,34 @@ function ask_open() { # The Captial letter is the default one
     read -p " " REPLY </dev/tty
 }
 
+# Generic command check status
+#
+# $1 package to check
+#
+# Return 0 if package already installed
+# Return 1 if package exist but not installed
+# Return 2 if package does not exist
 function checkCommand() {
-    printIsExits $1
     command -v $1 >/dev/null 2>&1
+    if [ $? -eq 1 ]; then
+        checkPackageExist "dunno" $1 >/dev/null 2>&1
+        if [ $? -eq 1 ]; then
+            return 2
+        else 
+            return 1
+        fi
+    fi
+    return 0;
 }
 
+# Check MAS status
+#
+# $1 package to check
+#
+# Return 0 if package already installed
+# Return 1 if package exist but not installed
+# Return 2 if package does not exist
 function checkCommandMas() {
-    printIsExits $1
     result=$1.app
     resultroot=/Applications/$result
     resulthome=$HOME/Applications/$result
@@ -106,13 +127,19 @@ function checkCommandMas() {
     fi
 }
 
+# Check cask status
+#
+# $1 package to check
+#
+# Return 0 if package already installed
+# Return 1 if package exist but not installed
+# Return 2 if package does not exist
 function checkCommandCask() {
-    printIsExits $1
-    brew cask info $1 >/dev/null 2>&1
+    brew info --cask $1 >/dev/null 2>&1
     if [ $? -eq 1 ]; then
         return 2
     else
-        result="$(brew cask info $1 | grep 'Not installed')"
+        result="$(brew info --cask $1 | grep 'Not installed')"
         if [ -n "$result" ]; then
             return 1
         fi
@@ -136,6 +163,17 @@ function printDoYouWant() {
     esac
 }
 
+# Generic installation tool
+#
+# Display depending on installation status the state of the installation
+# If the package exist and is not installed propsoe to install it
+# 
+# $1 command which will be use to install the package
+# $2 package to install
+# $3 status of the package: 
+#   0:  Package already installed
+#   1:  Package exist but not installed
+#   2:  Package does not exist
 function installBy() {
     if [ $3 -eq 1 ]; then
         printNotInstall
@@ -152,6 +190,30 @@ function installBy() {
     fi
 }
 
+# Specific cask installation tool
+#
+# If the package exist and is not installed propsoe to install it
+# 
+# $1 package to install
+# $2 status of the package: 
+#   0:  Package already installed
+#   1:  Package exist but not installed
+#   2:  Package does not exist
+function installByCask() {
+    if [ $2 -eq 1 ]; then
+        printNotInstall
+        printInfo
+        printDoYouWant $1
+        if [ $? -eq 0 ]; then
+            printInstallingBy "brew cask" $1
+            brew install --cask $1
+        fi
+    elif [ $2 -eq 2 ]; then
+        printDoesNotExist
+    else
+        printAlreadyInstall
+    fi
+}
 
 
 #################################################################
@@ -161,6 +223,7 @@ function install_packageManager() {
 
     # Hombrew : package manager for macOS (or Linux)
     # https://brew.sh/index_fr
+    printIsExits brew
     checkCommand brew
     if [ $? -ne 0 ]; then
         printInstallingBy "curl" brew
@@ -174,6 +237,7 @@ function install_packageManager() {
 
     # pip : package installer for Python
     # https://pypi.org/project/pip/
+    printIsExits pip3
     checkCommand pip3
     if [ $? -ne 0 ]; then
         printInstallingBy "curl" pip
@@ -194,6 +258,7 @@ function install_app() {
 
     IFS=' ' read -ra arguments <<< "$NAME"
     IFS=' '
+    printIsExits $1
     case $TYPE in
         brew)
             checkCommand $NAME
@@ -217,7 +282,7 @@ function install_app() {
             ;;
         cask) 
             checkCommandCask $NAME
-            installBy 'brew cask' $NAME $?
+            installByCask $NAME $?
             ;;
         gem)
             checkCommand $NAME
@@ -259,7 +324,7 @@ function checkPackageExist() {
 
     temp_type=""
     if  ([ "$1" == "dunno" ] || [ "$1" == "brew" ]) && [ $(brew info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="brew";
-    elif ([ "$1" == "dunno" ] || [ "$1" == "cask" ]) && [ $(brew cask info $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="cask";
+    elif ([ "$1" == "dunno" ] || [ "$1" == "cask" ]) && [ $(brew info --cask $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="cask";
     elif ([ "$1" == "dunno" ] || [ "$1" == "pip" ]) && [ $(pip3 search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="pip"; 
     elif ([ "$1" == "dunno" ] || [ "$1" == "mas" ]) && [ $(mas search $2 | grep $2 >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="mas"; 
     elif ([ "$1" == "dunno" ] || [ "$1" == "npm" ]) && [ $(npm view $2  >/dev/null 2>&1; echo $?) -eq 0 ]; then temp_type="npm"; 
@@ -282,7 +347,7 @@ function checkPackageInstall() {
     case $TYPE in
         brew|pip|gem) if [ $(command -v $NAME >/dev/null 2>&1; echo $?) -eq 0 ]; then return 0; fi  ;;
         brew-name) if [ $(command -v ${arguments[0]} >/dev/null 2>&1; echo $?) -eq 0 ]; then return 0; fi ;;
-        cask) if [ $(brew cask info $NAME | grep -e 'Not installed' >/dev/null 2>&1; echo $?) -eq 1 ]; then return 0; fi ;; 
+        cask) if [ $(brew info --cask $NAME | grep -e 'Not installed' >/dev/null 2>&1; echo $?) -eq 1 ]; then return 0; fi ;; 
         *) 
             result=${arguments[0]}.app
             resultroot=/Applications/$result
@@ -359,7 +424,7 @@ function update_all() {
     println "Updating brew..."
     brew update
     println "Updating brew cask..."
-    brew cask upgrade
+    brew upgrade --cask
     println "Updating mas..."
     mas upgrade
     println "Updating npm..."
