@@ -50,6 +50,10 @@ function printError() {
     printf "\033[0;31m $1 \033[0m\n"
 }
 
+function debug() {
+    printf "\033[0;104m $1 \033[0m\n"
+}
+
 function ask_no_or_Yes() { # The Captial letter is the default one
     printf "\033[0;33m $1 \033[0m"
     printf "(\033[0;92m[Y]es\033[0m"
@@ -235,7 +239,7 @@ function install_stack() {
         println "installing stack for category $1"
         readStack
         while IFS=, read CAT TYPE NAME DESC LINK; do
-            if [ $# -eq 1 ] && [ $CAT = $1 ]; then
+            if [ ! -z $CAT ] && [ $# -eq 1 ] && [ $CAT = $1 ]; then
                 install_app "${NAME}" "${TYPE}" "${DESC}" "${LINK}"
             fi
         done
@@ -491,6 +495,7 @@ done
 # If category install category
 if [ -n "$category" ]; then
     install_stack $category
+    exit 1
 fi
 
 # If package name passed try to install packages
