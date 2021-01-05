@@ -177,12 +177,12 @@ then
     git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 
     println "---- APPS CONFIGURATION ----"
-    FILE=$config_directory/mackup.cfg
-    if [ -f "$FILE" ]; then
-        println "Restore apps configuration using mackup..."
-        ln -s $config_directory/mackup.cfg $HOME/.mackup.cfg
-        mackup retore
-    else
-        printError "No mackup configuration found"
-    fi
+    # FILE=$config_directory/mackup.cfg
+    # if [ -f "$FILE" ]; then
+    #     println "Restore apps configuration using mackup..."
+    #     ln -s $config_directory/mackup.cfg $HOME/.mackup.cfg
+    #     mackup retore
+    # else
+    #     printError "No mackup configuration found"
+    # fi
 fi
