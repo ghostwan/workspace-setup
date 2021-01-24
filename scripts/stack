@@ -465,25 +465,23 @@ function install_package() {
     if ask_yes_or_No "Do you want to look for the $package (say no if you are sure of the name) ?"; then
         search_package $package
         ask_open "What is the name of the package (default is $package)  ?"
-        if [ -n $REPLY ]; then package=$REPLY; fi
+        package=${REPLY:-$package}
     fi
     if ask_no_or_Yes "Do you want to add in the stack and install $package ?"; then
         NAME=$package
         ask_open "What package type is it (brew, cask, brew-name, manual, pip, gem ) or leave blanck for detection  ?"
-        TYPE=$REPLY
-        if [ -z $TYPE ]; then TYPE="dunno"; fi
+        TYPE=${REPLY:-dunno}
         if checkPackageExist $TYPE $NAME; then
             if [ $TYPE = "mas" ]; then 
                 ask_open "What is the name of this app ?"
                 NAME="$REPLY $NAME"
             fi
             ask_open "In what category do you want to put it ? ( $(list_all_categories)) "
-            CAT=$REPLY
-            if [ -z "$CAT" ]; then CAT="wip"; fi
+            CAT=${REPLY:-wip}
             ask_open "Give a brief description of this tool: "
-            DESC=$REPLY
+            DESC=${REPLY:-none}
             ask_open "Give this tools website link for more info: "
-            LINK=$REPLY
+            LINK=${REPLY:-none}
             newLine="$CAT,$TYPE,$NAME,$DESC,$LINK"
             echo $newLine >> $STACK_CSV
             if ask_yes_or_No "Do you want to commit the add of "$NAME" and push ?"; then
