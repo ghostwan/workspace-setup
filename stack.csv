@@ -99,4 +99,5 @@ wip,brew,istat-menus,none,none
 android,brew,flipper,Module App Debug Toolbox,https://fbflipper.com/
 productivity,brew,translate-shell,CLI to translate in command line,https://github.com/soimort/translate-shell
 tools,brew,shellcheck,Check shell script,https://www.shellcheck.net/
-productivity,mas,Todoist 585829637,To do list,https://todoist.com/
+productivity,mas,todoist 585829637,To do list,https://todoist.com/
+terminal,brew,grex,regex generator,https://github.com/pemistahl/grex
