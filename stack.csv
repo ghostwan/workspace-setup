@@ -101,3 +101,4 @@ productivity,brew,translate-shell,CLI to translate in command line,https://githu
 tools,brew,shellcheck,Check shell script,https://www.shellcheck.net/
 productivity,mas,todoist 585829637,To do list,https://todoist.com/
 terminal,brew,grex,regex generator,https://github.com/pemistahl/grex
+development,brew,ivy,On the fly lib repository,https://ant.apache.org/ivy/
