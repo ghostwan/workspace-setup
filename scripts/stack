@@ -242,6 +242,7 @@ function install_packageManager() {
     if [ $? -ne 0 ]; then
         printInstallingBy "curl" pip
         curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        python3 -m pip install --user pipx
     else
         printAlreadyInstall
     fi
