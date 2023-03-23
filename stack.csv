@@ -105,3 +105,4 @@ development,brew,ivy,On the fly lib repository,https://ant.apache.org/ivy/
 development,brew,ki,The Next Interactive Shell for Kotlin,https://blog.jetbrains.com/kotlin/2021/04/ki-the-next-interactive-shell-for-kotlin/
 communication,brew,telegram,encrypted messaging application,https://web.telegram.org/
 productivity,brew,openvpn,vpn utility,https://openvpn.net/community-downloads/
+development,brew,gitlab-ci-local,Use full to test locally a gitlab yml file,https://github.com/firecow/gitlab-ci-local
