@@ -4,8 +4,7 @@ base,brew,zsh,Powerful unix shell,https://doc.ubuntu-fr.org/zsh
 base,brew,git,Version control system,https://git-scm.com/
 base,brew,git-gui,GUI to commit,https://git-scm.com/
 base,brew,gws,Agit workspace manager,https://github.com/StreakyCobra/gws
-base,brew,mackup,Put files (and directories) in trash,https://github.com/lra/mackup
-base,brew,rmtrash,Put files (and directories) in trash,https://github.com/PhrozenByte/rmtrash
+base,brew,trash,to remove file safetely,https://github.com/macmade/trash
 base,brew,jq,Command-line JSON processor,https://stedolan.github.io/jq/
 base,cask,bitwarden,Password manager,https://bitwarden.com/
 terminal,brew,autojump,A faster way to navigate in the filesystem,https://github.com/wting/autojump
@@ -106,3 +105,4 @@ development,brew,ki,The Next Interactive Shell for Kotlin,https://blog.jetbrains
 communication,brew,telegram,encrypted messaging application,https://web.telegram.org/
 productivity,brew,openvpn,vpn utility,https://openvpn.net/community-downloads/
 development,brew,gitlab-ci-local,Use full to test locally a gitlab yml file,https://github.com/firecow/gitlab-ci-local
+productivity,brew,microsoft-outlook,Microsoft messaging application,https://www.microsoft.com/fr-fr/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook
