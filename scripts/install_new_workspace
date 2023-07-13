@@ -11,6 +11,11 @@ function printError() {
     printf "\033[0;31m $1 \033[0m\n"
 }
 
+function ask_open() { # The Captial letter is the default one
+    printf "\033[0;33m $1 \033[0m"
+    read -p " " REPLY </dev/tty
+}
+
 function ask_yes_or_No() { # The Captial letter is the default one
     printf "\033[0;33m $1 \033[0m"
     printf "(\033[0;91m[N]o\033[0m"
@@ -85,6 +90,11 @@ function getWorkingBranch () {
   selectAmongValues "${RESULT[@]}"
 }
 
+function setSymLinkFor() {
+    ask_open "Path of the $1 ? (defualt is $2)"
+    link_path=${REPLY:-$2}
+    ln -s "$link_path" "$(pwd)/symlinks/$3"
+}
 
 if ! ask_yes_or_No "Did you add your ssh key on gihub ?"
 then
@@ -171,6 +181,12 @@ then
 
     println "Create symlink for zshrc: $config_directory/zsh/zshrc_current"
     ln -s $config_directory/zsh/zshrc_current $HOME/.zshrc
+
+    println "---- SYMLINKS CONFIGURATION ----"
+
+    mkdir "$(pwd)/symlinks"
+    setSymLinkFor "Android SDK" "$HOME/Library/Android/sdk" android-sdk
+    setSymLinkFor "Java JDK" "/Applications/Android Studio.app/Contents/jbr/Contents/Home" java-sdk
 
     println "Add plugin for oh-my-zsh"
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
