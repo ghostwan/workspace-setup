@@ -1,17 +1,12 @@
-# !/bin/bash
+#!/bin/bash
 # Version 1.0.0
 
 # Install all needed tools on a fresh mac
 
-force_installation=1
 export HOMEBREW_CASK_OPTS="--no-quarantine"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-# Find stack file either on current or upper folder
-STACK_CSV=$SCRIPT_DIR/stack.csv
-if [ ! -f "$STACK_CSV" ] ; then
-    STACK_CSV=$SCRIPT_DIR/../stack.csv
-    if [ ! -f "$STACK_CSV" ]; then printf "\033[0;31m Can't find stack.csv \033[0m\n"; exit 1; fi
-fi
+STACK_SUFFIX=""
+
 
 #########################################################
 ################## INSTALL UTILITY ##################
@@ -83,6 +78,16 @@ function continue_or_quit() {
 function ask_open() { # The Captial letter is the default one
     printf "\033[0;33m $1 \033[0m"
     read -p " " REPLY </dev/tty
+}
+
+function getStack() {
+    # Find stack file either on current or upper folder
+    csv=$SCRIPT_DIR/stack$STACK_SUFFIX.csv
+    if [ ! -f "$csv" ] ; then
+        csv=$SCRIPT_DIR/../stack$STACK_SUFFIX.csv
+        if [ ! -f "$csv" ]; then printf "\033[0;31m Can't find stack.csv \033[0m\n"; exit 1; fi
+    fi
+    echo $csv
 }
 
 # Generic command check status
@@ -363,7 +368,7 @@ function checkPackageInstall() {
 }
 
 function readStack() {
-    exec < $STACK_CSV || exit 1
+    exec < "$(getStack)" || exit 1
     read header # read (and ignore) the first line
 }
 
@@ -436,7 +441,7 @@ function update_all() {
 }
 
 function edit_stack(){
-    code $STACK_CSV
+    code "$(getStack)"
     continue_or_quit
     git -C $SCRIPT_DIR gui
 }
@@ -485,7 +490,7 @@ function install_package() {
             ask_open "Give this tools website link for more info: "
             LINK=${REPLY:-none}
             newLine="$CAT,$TYPE,$NAME,$DESC,$LINK"
-            echo $newLine >> $STACK_CSV
+            echo $newLine >> "$(getStack)"
             if ask_yes_or_No "Do you want to commit the add of "$NAME" and push ?"; then
                 git -C $SCRIPT_DIR commit -am "Add $NAME: $DESC"
                 git -C  $SCRIPT_DIR push -u origin HEAD
@@ -499,12 +504,12 @@ function install_package() {
     IFS=' '
 }
 
-
+# ------- BEGIN OF THE SCRIPT ------- #
 
 # # A POSIX variable
 OPTIND=1 # Reset in case getopts has been used previously in the shell.
-
 category=""
+force_installation=1
 
 display_usage() {
   echo
@@ -523,11 +528,11 @@ display_usage() {
   echo "                => example:  ${0##*/} -p spotify"
   echo " -s <package>       Search for a specific package/app by its name"
   echo " -u                 Update all package"
+  echo " -k                 Name of the stack to use"
   echo
-  
 }
 
-while getopts "h?vfeuc:s:l:" opt; do
+while getopts "h?feuc:s:l:k:" opt; do
     case "$opt" in
     h | \?)
         display_usage
@@ -550,6 +555,9 @@ while getopts "h?vfeuc:s:l:" opt; do
     l)
         list_packages_category $OPTARG
         exit 0
+        ;;
+    k)
+        STACK_SUFFIX="_$OPTARG"
         ;;
     e)
         edit_stack

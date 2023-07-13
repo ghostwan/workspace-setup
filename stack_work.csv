@@ -1,0 +1,61 @@
+category,type,name,description,link
+base,cask,iterm2,Powerful terminal,https://www.iterm2.com/
+base,brew,zsh,Powerful unix shell,https://doc.ubuntu-fr.org/zsh
+base,brew,git,Version control system,https://git-scm.com/
+base,brew,git-gui,GUI to commit,https://git-scm.com/
+base,brew,gws,Agit workspace manager,https://github.com/StreakyCobra/gws
+base,brew,trash,to remove file safetely,https://github.com/macmade/trash
+base,brew,jq,Command-line JSON processor,https://stedolan.github.io/jq/
+base,cask,bitwarden,Password manager,https://bitwarden.com/
+terminal,brew,autojump,A faster way to navigate in the filesystem,https://github.com/wting/autojump
+terminal,brew,wget,Retrieves content from web servers,https://www.wikiwand.com/fr/GNU_Wget
+terminal,brew,htop,An interactive process viewer for Unix systems,https://hisham.hm/htop/
+terminal,brew,tree,List directories tree,https://www.geeksforgeeks.org/tree-command-unixlinux/
+terminal,brew,ssh-copy-id,Use locally available keys to authorise logins on a remote machine,https://www.ssh.com/ssh/copy-id
+terminal,brew,sshpass,Noninteractive ssh password provider,https://linux.die.net/man/1/sshpass
+terminal,brew,unrar,Unarchiver for rar tool,https://www.wikiwand.com/fr/WinRAR
+terminal,brew,hub,Tools to esase the use of github,https://github.com/github/hub
+terminal,brew-name,lab zaquestion/tap/lab,Tools to esase the use of gitlab,https://github.com/zaquestion/lab
+terminal,gem,mdless,Formatted and highlighted view of Markdown files in Terminal,https://github.com/ttscoff/mdless
+development,cask,visual-studio-code,Powerful code editor,https://gist.github.com/ghostwan/fdf88470e77989592e6651c195bdb8ff
+development,cask,intellij-idea-ce,The most porweful IDE,https://www.jetbrains.com/idea/
+development,cask,diffmerge,Visually compare and merge files,https://sourcegear.com/diffmerge/
+development,cask,db-browser-for-sqlite,SQLite Browser : browser for sql database,https://sqlitebrowser.org/
+android,cask,android-studio,IDE for Android,https://developer.android.com/studio
+android,brew,apktool,A tool for reverse engineering Android apps,https://ibotpeaches.github.io/Apktool/
+android,brew,pidcat,Colored logcat script for a specific application package,https://github.com/JakeWharton/pidcat
+android,brew,dex2jar,Tools to work with android .dex and java .class files,https://sourceforge.net/p/dex2jar/wiki/UserGuide/
+android,brew,cfr-decompiler,Java decompiler,https://www.benf.org/other/cfr
+android,cask,jd-gui,Java decompiler,http://java-decompiler.github.io
+android,cask,vysor,Remote disaply for android,https://www.vysor.io
+android,cask,keystore-explorer,Keystore management,http://keystore-explorer.org
+android,brew,scrcpy,Export remoote for android device,https://github.com/Genymobile/scrcpy
+web,cask,google-chrome,Web Browser,https://www.google.com/chrome
+productivity,cask,alfred,Poweful spotlight,https://www.alfredapp.com
+productivity,cask,dropbox,Online storage,https://www.dropbox.com
+productivity,cask,notion,Evernote on steroid,https://www.notion.so
+productivity,cask,microsoft-teams,Company instant messenger,https://www.microsoft.com/fr-fr/microsoft-365/microsoft-teams
+os,cask,daisydisk,Disk analyser,https://daisydiskapp.com
+os,cask,the-unarchiver,Multi zip unarchiver,https://theunarchiver.com
+multimedia,cask,spotify,Music streaming,https://www.spotify.com
+multimedia,cask,whatsapp,Instant messaging,https://www.whatsapp.com
+multimedia,brew,ffmepg,Record tool,https://ffmpeg.org/
+multimedia,cask,quik,Go Pro,https://community.gopro.com/t5/fr/Logiciel-h-233-rit-233-GoPro/ta-p/603523
+design,cask,sketch,Proto designer,https://www.sketch.com/
+design,cask,zeplin,UI designer,https://zeplin.io/
+design,cask,protopie,App Prototyping,https://www.protopie.io/
+productivity,brew,adobe-acrobat-reader,PDF reader,https://get2.adobe.com/fr/reader/completion/?installer=Reader_DC_2020.012.20048_for_Mac_Intel
+development,brew,sourcetree,git client,https://www.sourcetreeapp.com/
+development,npm,firebase,firebase cli,https://firebase.google.com/docs/cli
+development,brew,jadx,reverse engenering android application,https://github.com/skylot/jadx
+productivity,cask,yed,diagram,https://www.yworks.com/products/yed
+android,brew,openmtp,Android File Transfer,https://github.com/ganeshrvel/openmtp
+system,brew,istat-menus,none,none
+android,brew,flipper,Module App Debug Toolbox,https://fbflipper.com/
+productivity,brew,translate-shell,CLI to translate in command line,https://github.com/soimort/translate-shell
+tools,brew,shellcheck,Check shell script,https://www.shellcheck.net/
+terminal,brew,grex,regex generator,https://github.com/pemistahl/grex
+development,brew,ivy,On the fly lib repository,https://ant.apache.org/ivy/
+development,brew,ki,The Next Interactive Shell for Kotlin,https://blog.jetbrains.com/kotlin/2021/04/ki-the-next-interactive-shell-for-kotlin/
+development,brew,gitlab-ci-local,Use full to test locally a gitlab yml file,https://github.com/firecow/gitlab-ci-local
+productivity,brew,microsoft-outlook,Microsoft messaging application,https://www.microsoft.com/fr-fr/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook
