@@ -173,32 +173,5 @@ then
     getWorkingBranch
     git checkout $RESULT
 
-    println "---- ZSH CONFIGURATION ----"
-
-    println "install oh my zsh"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    rm $HOME/.zshrc
-
-    println "Create symlink for zshrc: $config_directory/zsh/zshrc_current"
-    ln -s $config_directory/zsh/zshrc_current $HOME/.zshrc
-
-    println "---- SYMLINKS CONFIGURATION ----"
-
-    mkdir "$(pwd)/symlinks"
-    setSymLinkFor "Android SDK" "$HOME/Library/Android/sdk" android-sdk
-    setSymLinkFor "Java JDK" "/Applications/Android Studio.app/Contents/jbr/Contents/Home" java-sdk
-
-    println "Add plugin for oh-my-zsh"
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
-
-    println "---- APPS CONFIGURATION ----"
-    # FILE=$config_directory/mackup.cfg
-    # if [ -f "$FILE" ]; then
-    #     println "Restore apps configuration using mackup..."
-    #     ln -s $config_directory/mackup.cfg $HOME/.mackup.cfg
-    #     mackup retore
-    # else
-    #     printError "No mackup configuration found"
-    # fi
+    source init.sh
 fi
