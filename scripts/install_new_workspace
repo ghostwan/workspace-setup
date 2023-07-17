@@ -173,5 +173,5 @@ then
     getWorkingBranch
     git checkout $RESULT
 
-    source init.sh
+    sh init.sh
 fi
