@@ -1,5 +1,6 @@
 category,type,name,description,link
 base,cask,iterm2,Powerful terminal,https://www.iterm2.com/
+base,brew,bash,Recent version of bash,https://hybriddbablog.com/2021/01/25/bash-bad-substitution-upgrade-your-bash-version/
 base,brew,zsh,Powerful unix shell,https://doc.ubuntu-fr.org/zsh
 base,brew,git,Version control system,https://git-scm.com/
 base,brew,git-gui,GUI to commit,https://git-scm.com/
@@ -106,3 +107,4 @@ communication,brew,telegram,encrypted messaging application,https://web.telegram
 productivity,brew,openvpn,vpn utility,https://openvpn.net/community-downloads/
 development,brew,gitlab-ci-local,Use full to test locally a gitlab yml file,https://github.com/firecow/gitlab-ci-local
 productivity,brew,microsoft-outlook,Microsoft messaging application,https://www.microsoft.com/fr-fr/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook
+design,brew,figma,tools to design app screen,https://www.figma.com/fr/
