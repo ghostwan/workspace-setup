@@ -7,7 +7,10 @@ base,brew,git-gui,GUI to commit,https://git-scm.com/
 base,brew,gws,Agit workspace manager,https://github.com/StreakyCobra/gws
 base,brew,trash,to remove file safetely,https://github.com/macmade/trash
 base,brew,jq,Command-line JSON processor,https://stedolan.github.io/jq/
-base,cask,bitwarden,Password manager,https://bitwarden.com/
+base,cask,alfred,Poweful spotlight,https://www.alfredapp.com
+base,brew,arc,New browser experience with session management,https://arc.net/
+base,cask,dropbox,Online storage,https://www.dropbox.com
+base,cask,notion,Evernote on steroid,https://www.notion.so
 terminal,brew,autojump,A faster way to navigate in the filesystem,https://github.com/wting/autojump
 terminal,brew,wget,Retrieves content from web servers,https://www.wikiwand.com/fr/GNU_Wget
 terminal,brew,htop,An interactive process viewer for Unix systems,https://hisham.hm/htop/
@@ -44,10 +47,7 @@ web,cask,insomnia,Rest client,https://insomnia.rest
 web,cask,google-chrome,Web Browser,https://www.google.com/chrome
 web,cask,transmit,FTP Client,https://panic.com/transmit
 web,cask,tor-browser,Anonymous browser,https://www.torproject.org
-productivity,cask,alfred,Poweful spotlight,https://www.alfredapp.com
 productivity,cask,dash,API documentation browser,https://kapeli.com/dash
-productivity,cask,dropbox,Online storage,https://www.dropbox.com
-productivity,cask,notion,Evernote on steroid,https://www.notion.so
 productivity,cask,bettertouchtool,Powerful shortcuts customisation,https://folivora.ai
 productivity,mas,BetterSnapTool 417375580,Manage your window positions and sizes,https://folivora.ai/bettersnaptool
 productivity,cask,macdown,Markdown editor,https://macdown.uranusjr.com
@@ -109,7 +109,6 @@ development,brew,gitlab-ci-local,Use full to test locally a gitlab yml file,http
 productivity,brew,microsoft-outlook,Microsoft messaging application,https://www.microsoft.com/fr-fr/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook
 development,npm,@mermaid-js/mermaid-cli,Generate uml diagram,https://mermaid.js.org/
 design,brew,figma,titi,totot
-productivity,brew,arc,New browser experience with session management,https://arc.net/
 development,brew,ngrok,tunnel,https://ngrok.com/
 tools,brew,mullvadvpn,none,none
 tools,brew,lunar,Permet de controler la luminositer de son moniteur externe,https://lunar.fyi/
