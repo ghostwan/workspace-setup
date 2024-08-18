@@ -21,9 +21,7 @@ terminal,brew,unrar,Unarchiver for rar tool,https://www.wikiwand.com/fr/WinRAR
 terminal,brew,hub,Tools to esase the use of github,https://github.com/github/hub
 terminal,brew-name,lab zaquestion/tap/lab,Tools to esase the use of gitlab,https://github.com/zaquestion/lab
 terminal,gem,mdless,Formatted and highlighted view of Markdown files in Terminal,https://github.com/ttscoff/mdless
-development,cask,adoptopenjdk,Last java / jdk version,https://adoptopenjdk.net/
 development,cask,visual-studio-code,Powerful code editor,https://gist.github.com/ghostwan/fdf88470e77989592e6651c195bdb8ff
-development,cask,intellij-idea-ce,The most porweful IDE,https://www.jetbrains.com/idea/
 development,cask,diffmerge,Visually compare and merge files,https://sourcegear.com/diffmerge/
 development,cask,db-browser-for-sqlite,SQLite Browser : browser for sql database,https://sqlitebrowser.org/
 development,cask,cacher,Cacher: Snippet manager,https://www.cacher.io/
@@ -36,27 +34,14 @@ android,cask,jd-gui,Java decompiler,http://java-decompiler.github.io
 android,cask,vysor,Remote disaply for android,https://www.vysor.io
 android,cask,keystore-explorer,Keystore management,http://keystore-explorer.org
 android,brew,scrcpy,Export remoote for android device,https://github.com/Genymobile/scrcpy
-python,cask,anaconda,Machine learning environement,https://www.anaconda.com/distribution
 ci,cask,docker,Container engine,https://www.docker.com
-ci,brew,kubernetes-cli,Container orchestration,https://kubernetes.io
-ci,cask,minikube,Container orchestration,https://kubernetes.io
 hacking,cask,wireshark,Network analyzer,https://www.wireshark.org
-hacking,brew,mitmproxy,Man in the middle,https://mitmproxy.org
-hacking,cask,burp-suite,Pen test,https://portswigger.net/burp
 web,cask,insomnia,Rest client,https://insomnia.rest
 web,cask,google-chrome,Web Browser,https://www.google.com/chrome
 web,cask,transmit,FTP Client,https://panic.com/transmit
-web,cask,tor-browser,Anonymous browser,https://www.torproject.org
 productivity,cask,dash,API documentation browser,https://kapeli.com/dash
-productivity,cask,bettertouchtool,Powerful shortcuts customisation,https://folivora.ai
-productivity,mas,BetterSnapTool 417375580,Manage your window positions and sizes,https://folivora.ai/bettersnaptool
 productivity,cask,macdown,Markdown editor,https://macdown.uranusjr.com
 productivity,cask,microsoft-teams,Company instant messenger,https://www.microsoft.com/fr-fr/microsoft-365/microsoft-teams
-communication,cask,skype,Visioconference,https://www.skype.com
-communication,cask,slack,A collaboration hub for work,https://slack.com
-communication,cask,teamviewer,Remote control,https://www.teamviewer.com
-communication,manual,Shift,Account manager,https://tryshift.com
-communication,cask,tunnelblick,Work VPN,https://tunnelblick.net
 communication,cask,mullvadvpn,Personal VPN,http://mullvad.net
 communication,cask,discord,Game chat,https://discordapp.com
 os,cask,daisydisk,Disk analyser,https://daisydiskapp.com
@@ -69,7 +54,6 @@ multimedia,cask,whatsapp,Instant messaging,https://www.whatsapp.com
 multimedia,cask,molotov,TV and replay,https://www.molotov.tv
 multimedia,brew,youtube-dl,Youtube downloader,https://ytdl-org.github.io/youtube-dl/index.html
 multimedia,brew,ffmepg,Record tool,https://ffmpeg.org/
-multimedia,manual,PopcornTime,Watch movie and tv shows,https://popcorntime.app/fr/
 multimedia,cask,quik,Go Pro,https://community.gopro.com/t5/fr/Logiciel-h-233-rit-233-GoPro/ta-p/603523
 multimedia,cask,sound-control,Powerful sound controler for mac,https://staticz.com/soundcontrol/
 design,cask,sketch,Proto designer,https://www.sketch.com/
@@ -89,7 +73,6 @@ design,brew,imagemagick,image processing tool,none
 tools,brew,monitorcontrol,Control your external monitor brightness,https://github.com/MonitorControl/MonitorControl
 development,brew,sourcetree,git client,https://www.sourcetreeapp.com/
 development,npm,firebase,firebase cli,https://firebase.google.com/docs/cli
-web,brew,brave-browser,Internet browser,https://brave.com/fr/
 productivity,brew,openvpn-connect,vpn,https://openvpn.net/download-open-vpn/
 productivity,mas,bear 1091189122,Markown editor,https://bear.app/android
 development,brew,jadx,reverse engenering android application,https://github.com/skylot/jadx
