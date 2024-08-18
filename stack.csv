@@ -73,7 +73,6 @@ design,brew,imagemagick,image processing tool,none
 tools,brew,monitorcontrol,Control your external monitor brightness,https://github.com/MonitorControl/MonitorControl
 development,brew,sourcetree,git client,https://www.sourcetreeapp.com/
 development,npm,firebase,firebase cli,https://firebase.google.com/docs/cli
-productivity,brew,openvpn-connect,vpn,https://openvpn.net/download-open-vpn/
 productivity,mas,bear 1091189122,Markown editor,https://bear.app/android
 development,brew,jadx,reverse engenering android application,https://github.com/skylot/jadx
 productivity,cask,yed,diagram,https://www.yworks.com/products/yed
@@ -87,11 +86,10 @@ terminal,brew,grex,regex generator,https://github.com/pemistahl/grex
 development,brew,ivy,On the fly lib repository,https://ant.apache.org/ivy/
 development,brew,ki,The Next Interactive Shell for Kotlin,https://blog.jetbrains.com/kotlin/2021/04/ki-the-next-interactive-shell-for-kotlin/
 communication,brew,telegram,encrypted messaging application,https://web.telegram.org/
-productivity,brew,openvpn,vpn utility,https://openvpn.net/community-downloads/
 development,brew,gitlab-ci-local,Use full to test locally a gitlab yml file,https://github.com/firecow/gitlab-ci-local
 productivity,brew,microsoft-outlook,Microsoft messaging application,https://www.microsoft.com/fr-fr/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook
 development,npm,@mermaid-js/mermaid-cli,Generate uml diagram,https://mermaid.js.org/
-design,brew,figma,titi,totot
+design,brew,figma,Designer tool,https://www.figma.com/fr-fr/
 development,brew,ngrok,tunnel,https://ngrok.com/
 tools,brew,mullvadvpn,none,none
 tools,brew,lunar,Permet de controler la luminositer de son moniteur externe,https://lunar.fyi/
