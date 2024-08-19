@@ -94,4 +94,5 @@ development,brew,ngrok,tunnel,https://ngrok.com/
 tools,brew,mullvadvpn,none,none
 tools,brew,lunar,Permet de controler la luminositer de son moniteur externe,https://lunar.fyi/
 multimedia,brew,stremio,Freedom to Stream,https://www.stremio.com/
-development,mas,GitLab Widget 6450935828,menu bar application that makes it easier to work with GitLab,https://stefkors.com/gitlab-widget
+development,mas,gitLab-widget 6450935828,menu bar application that makes it easier to work with GitLab,https://stefkors.com/gitlab-widget
+development,mas,GitLab GitLab,menu bar application that makes it easier to work with GitLab,https://stefkors.com/gitlab-widget

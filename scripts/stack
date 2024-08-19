@@ -124,7 +124,7 @@ function checkCommandMas() {
     if [ -d "$resultroot" ] || [ -d "$resulthome" ]; then
         return 0
     else
-        result="$(mas search $1 | grep 'No results found')"
+        result="$(mas search $2 | grep 'No results found')"
         if [ -n "$result" ]; then
             return 2
         fi
