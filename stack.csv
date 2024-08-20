@@ -11,6 +11,7 @@ base,cask,alfred,Poweful spotlight,https://www.alfredapp.com
 base,brew,arc,New browser experience with session management,https://arc.net/
 base,cask,dropbox,Online storage,https://www.dropbox.com
 base,cask,notion,Evernote on steroid,https://www.notion.so
+base,mas,bear 1091189122,Markown editor,https://bear.app/android
 terminal,brew,autojump,A faster way to navigate in the filesystem,https://github.com/wting/autojump
 terminal,brew,wget,Retrieves content from web servers,https://www.wikiwand.com/fr/GNU_Wget
 terminal,brew,htop,An interactive process viewer for Unix systems,https://hisham.hm/htop/
@@ -73,7 +74,6 @@ design,brew,imagemagick,image processing tool,none
 tools,brew,monitorcontrol,Control your external monitor brightness,https://github.com/MonitorControl/MonitorControl
 development,brew,sourcetree,git client,https://www.sourcetreeapp.com/
 development,npm,firebase,firebase cli,https://firebase.google.com/docs/cli
-productivity,mas,bear 1091189122,Markown editor,https://bear.app/android
 development,brew,jadx,reverse engenering android application,https://github.com/skylot/jadx
 productivity,cask,yed,diagram,https://www.yworks.com/products/yed
 android,brew,openmtp,Android File Transfer,https://github.com/ganeshrvel/openmtp
